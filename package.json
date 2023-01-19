@@ -6,6 +6,7 @@
   "private": true,
   "devDependencies": {
     "@nrwl/eslint-plugin-nx": "15.5.1",
+    "@nrwl/js": "15.5.1",
     "@nrwl/linter": "15.5.1",
     "@nrwl/vite": "15.5.1",
     "@nrwl/web": "15.5.1",
@@ -28,6 +29,8 @@
     "vitest": "^0.25.8"
   },
   "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "core-js": "^3.6.5",
     "regenerator-runtime": "0.13.7",
     "tslib": "^2.3.0",
