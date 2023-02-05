@@ -25,7 +25,8 @@
       "executor": "@nrwl/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "pistillum:build"
+        "buildTarget": "pistillum:build",
+        "proxyConfig": "apps/pistillum/proxy.conf.json"
       },
       "configurations": {
         "development": {
