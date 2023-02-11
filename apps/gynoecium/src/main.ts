@@ -1,8 +1,4 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
+import helmet from 'helmet';
 import { Logger } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { PrismaClientExceptionFilter, PrismaService } from 'nestjs-prisma';
@@ -23,6 +19,7 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
 
+  app.use(helmet());
   app.enableCors();
 
   const port = process.env.PORT || 3333;
