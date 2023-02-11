@@ -4,8 +4,8 @@
  */
 
 import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { PrismaService } from 'nestjs-prisma';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { PrismaClientExceptionFilter, PrismaService } from 'nestjs-prisma';
 
 import { AppModule } from './app/app.module';
 
@@ -19,6 +19,9 @@ async function bootstrap() {
    */
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
+
+  const { httpAdapter } = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
 
   const port = process.env.PORT || 3333;
   await app.listen(port);
