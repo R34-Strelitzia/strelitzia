@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@strelitzia/contracts/v2": ["libs/contracts/src/v2.ts"]
+      "@strelitzia/contracts/v2": ["libs/contracts/src/v2.ts"],
+      "@strelitzia/prisma": ["libs/prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
