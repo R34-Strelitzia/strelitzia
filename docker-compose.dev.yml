@@ -15,5 +15,19 @@ services:
     ports:
       - 5432:5432
 
+  cache:
+    container_name: redis
+    image: redis:7-alpine
+    restart: always
+    environment:
+      - REDIS_PASSWORD=TEST
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+    ports:
+      - 6379:6379
+    volumes:
+      - cache:/var/lib/redis/data
+
 volumes:
   pgdata:
+  cache:
+    driver: local
