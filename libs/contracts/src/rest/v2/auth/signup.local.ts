@@ -1,6 +1,8 @@
-import { IsEmail, IsStrongPassword, Length } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsStrongPassword, ValidateNested } from 'class-validator';
+
+import { User } from '../users';
 import type { APIError } from '../error';
-import type { User } from '../users';
 
 /**
  * POST /auth/signup/
@@ -13,11 +15,9 @@ export namespace SignUpLocal {
   export const path = '/auth/signup/';
 
   export class Request {
-    @Length(4, 20)
-    username: string;
-
-    @IsEmail()
-    email: string;
+    @ValidateNested()
+    @Type(() => User)
+    user: User;
 
     /**
      * The password must be strong!

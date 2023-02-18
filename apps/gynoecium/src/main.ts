@@ -1,5 +1,5 @@
 import helmet from 'helmet';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { PrismaFilter, PrismaService } from '@strelitzia/prisma';
 
@@ -18,6 +18,8 @@ async function bootstrap() {
 
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaFilter(httpAdapter));
+
+  app.useGlobalPipes(new ValidationPipe());
 
   app.use(helmet());
   app.enableCors();
