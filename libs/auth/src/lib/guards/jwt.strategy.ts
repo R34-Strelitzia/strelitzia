@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { EnvironmentVariables } from '../../config';
 import { IAuthenticatedUser, IJwtPayload } from '../interfaces';
+import { EnvironmentVariables } from '@strelitzia/config-validation';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

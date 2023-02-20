@@ -3,11 +3,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AuthService } from './auth.service';
-import { EnvironmentVariables } from '../config';
+import { UsersModule } from '@strelitzia/users';
+import { PrismaModule } from '@strelitzia/prisma';
 import { AuthController } from './auth.controller';
-import { UsersModule } from '../users/users.module';
 import { PasswordService } from './password.service';
 import { JwtStrategy, JwtRefreshStrategy } from './guards';
+import { EnvironmentVariables } from '@strelitzia/config-validation';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { JwtStrategy, JwtRefreshStrategy } from './guards';
       inject: [ConfigService],
     }),
     ConfigModule,
+    PrismaModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, PasswordService, JwtStrategy, JwtRefreshStrategy],

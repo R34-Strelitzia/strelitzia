@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { EnvironmentVariables } from '../../config';
+import { EnvironmentVariables } from '@strelitzia/config-validation';
 import { IAuthenticatedUser, IJwtRefreshPayload } from '../interfaces';
 
 @Injectable()

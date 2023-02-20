@@ -1,17 +1,17 @@
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+
 import {
   LoginLocal,
   RefreshJwt,
   SignUpLocal,
   User as UserViewModel,
 } from '@strelitzia/contracts/v2';
-
-import { EnvironmentVariables } from '../config';
+import { UsersService } from '@strelitzia/users';
 import { PasswordService } from './password.service';
-import { UsersService } from '../users/users.service';
 import { IJwtPayload, IJwtRefreshPayload } from './interfaces';
+import { EnvironmentVariables } from '@strelitzia/config-validation';
 
 @Injectable()
 export class AuthService {
