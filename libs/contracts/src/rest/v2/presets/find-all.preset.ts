@@ -1,8 +1,8 @@
 import { Type } from 'class-transformer';
 import { IsNotEmptyObject, ValidateNested } from 'class-validator';
 
-import type { Preset } from './preset';
 import type { APIError } from '../error';
+import type { PresetWithID } from './preset';
 import { Pagination } from '../pagination/pagination';
 
 /**
@@ -31,13 +31,13 @@ export namespace FindAllPresets {
    * statusCode: 200 - OK
    */
   export class Response {
-    presets: Preset[];
+    presets: Required<PresetWithID>[];
   }
 
   /**
    * statusCode:
-   * 403 - forbidden, need auth
-   * 404 - not found created preset by this user
+   * 403 - Forbidden, need auth
+   * 404 - Presets Not Found
    */
   export type ResponseError = APIError<403 | 404>;
 }

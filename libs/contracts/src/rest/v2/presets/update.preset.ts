@@ -1,8 +1,11 @@
+import { Type } from 'class-transformer';
+import { IsNotEmptyObject, ValidateNested } from 'class-validator';
+
+import { PresetWithID } from './preset';
 import type { APIError } from '../error';
-import type { Preset } from './preset';
 
 /**
- * PUT /presets/:id
+ * PUT /presets/
  *
  * Required Bearer Auth
  *
@@ -11,29 +14,29 @@ import type { Preset } from './preset';
  * Error: 403 - Forbidden, 404 - Not Found
  */
 export namespace UpdatePreset {
-  /**
-   * Required preset **id** param, like **"/presets/:id"**
-   */
   export const path = '/presets/';
 
   /**
    * Required Bearer Auth
    */
   export class Request {
-    preset: Preset;
+    @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => PresetWithID)
+    preset: PresetWithID;
   }
 
   /**
    * statusCode: 200 - OK
    */
   export class Response {
-    preset: Preset;
+    preset: Required<PresetWithID>;
   }
 
   /**
    * statusCode:
-   * 403 - forbidden, need auth
-   * 404 - preset not found
+   * 403 - Forbidden, need auth
+   * 404 - Preset Not Found
    */
   export type ResponseError = APIError<403 | 404>;
 }

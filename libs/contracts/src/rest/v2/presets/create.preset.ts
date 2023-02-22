@@ -1,5 +1,8 @@
+import { Type } from 'class-transformer';
+import { IsNotEmptyObject, ValidateNested } from 'class-validator';
+
 import type { APIError } from '../error';
-import type { Preset } from './preset';
+import { Preset, PresetWithID } from './preset';
 
 /**
  * POST /presets/
@@ -17,6 +20,9 @@ export namespace CreatePreset {
    * Required Bearer Auth
    */
   export class Request {
+    @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => Preset)
     preset: Preset;
   }
 
@@ -24,15 +30,15 @@ export namespace CreatePreset {
    * statusCode: 201 - Created
    */
   export class Response {
-    preset: Preset;
+    preset: Required<PresetWithID>;
   }
 
   /**
    * statusCode:
    *
-   * 400 - validation error
+   * 400 - Validation Error
    *
-   * 403 - forbidden, need auth
+   * 403 - Forbidden, need auth
    *
    * 409 - Conflict
    */
