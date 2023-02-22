@@ -76,7 +76,10 @@ export class AuthService {
   }
 
   private async createAccessToken(userId: string): Promise<string> {
-    const payload = { sub: userId } satisfies Pick<IJwtPayload, 'sub'>;
+    const payload = { sub: userId, type: 'access' } satisfies Pick<
+      IJwtPayload,
+      'sub' | 'type'
+    >;
 
     const token = await this.jwtService.signAsync(payload, {
       secret: this.configService.get('JWT_ACCESS_SECRET'),
@@ -87,9 +90,9 @@ export class AuthService {
   }
 
   private async createRefreshToken(userId: string): Promise<string> {
-    const payload = { isRefresh: true, sub: userId } satisfies Pick<
+    const payload = { sub: userId, type: 'refresh' } satisfies Pick<
       IJwtRefreshPayload,
-      'isRefresh' | 'sub'
+      'sub' | 'type'
     >;
 
     const token = await this.jwtService.signAsync(payload, {

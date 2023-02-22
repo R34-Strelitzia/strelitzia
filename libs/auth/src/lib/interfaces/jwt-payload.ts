@@ -1,10 +1,11 @@
 export interface IJwtPayload {
   iss: string;
-  sub: string;
+  sub?: string;
   iat: number;
   exp: number;
+  type: TokenType;
 }
 
-export interface IJwtRefreshPayload extends IJwtPayload {
-  isRefresh: true;
-}
+export type IJwtRefreshPayload = IJwtPayload
+
+export type TokenType = 'access' | 'refresh';

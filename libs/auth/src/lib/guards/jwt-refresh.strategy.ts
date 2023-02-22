@@ -22,7 +22,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   }
 
   async validate(payload: IJwtRefreshPayload): Promise<IAuthenticatedUser> {
-    if (!payload.isRefresh) {
+    if (payload.type !== 'refresh') {
       throw new UnauthorizedException();
     }
 
