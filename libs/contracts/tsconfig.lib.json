@@ -2,9 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "alwaysStrict": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "module": "commonjs",
     "noUnusedParameters": true,
     "sourceMap": true,
@@ -21,8 +19,5 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false
   },
-  "include": [
-    "src/v2.ts",
-    "rest/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"]
 }
