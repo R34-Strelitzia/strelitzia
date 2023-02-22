@@ -25,7 +25,7 @@ export namespace FindOnePresets {
    * statusCode: 200 - OK
    */
   export class Response {
-    presets: Required<PresetWithID>;
+    preset: Required<PresetWithID>;
   }
 
   /**
