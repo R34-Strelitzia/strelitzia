@@ -1,6 +1,9 @@
+import { Type } from 'class-transformer';
+import { IsNotEmptyObject, ValidateNested } from 'class-validator';
+
 import type { APIError } from '../error';
 import type { Favorite } from './favorite';
-
+import { Pagination } from '../pagination/pagination';
 /**
  * GET /favorites/
  *
@@ -16,7 +19,12 @@ export namespace FindAllFavorite {
   /**
    * Required Bearer Auth
    */
-  export class Request {}
+  export class Request {
+    @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => Pagination)
+    pagination: Pagination;
+  }
 
   /**
    * statusCode: 200 - OK

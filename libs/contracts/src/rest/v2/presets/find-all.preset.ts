@@ -1,5 +1,9 @@
-import type { APIError } from '../error';
+import { Type } from 'class-transformer';
+import { IsNotEmptyObject, ValidateNested } from 'class-validator';
+
 import type { Preset } from './preset';
+import type { APIError } from '../error';
+import { Pagination } from '../pagination/pagination';
 
 /**
  * GET /presets/
@@ -16,7 +20,12 @@ export namespace FindAllPresets {
   /**
    * Required Bearer Auth
    */
-  export class Request {}
+  export class Request {
+    @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => Pagination)
+    pagination: Pagination;
+  }
 
   /**
    * statusCode: 200 - OK
