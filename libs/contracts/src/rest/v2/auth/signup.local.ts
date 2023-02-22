@@ -7,7 +7,7 @@ import type { APIError } from '../error';
 /**
  * POST /auth/signup/
  *
- * Success: 200 - User Entity, access and refresh tokens in Response Body
+ * Success: 201 - User Entity, access and refresh tokens in Response Body
  *
  * Error: 400 - Bad Request, 409 - Conflict
  */
@@ -29,7 +29,7 @@ export namespace SignUpLocal {
   }
 
   /**
-   * statusCode: 200 - OK
+   * statusCode: 201 - Created
    */
   export class Response {
     user: User;

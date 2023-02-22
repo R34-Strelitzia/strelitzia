@@ -6,7 +6,7 @@ import type { Preset } from './preset';
  *
  * Required Bearer Auth
  *
- * Success: 200 - Preset Entity in Response Body
+ * Success: 201 - Preset Entity in Response Body
  *
  * Error: 400 - Bad Request, 403 - Forbidden, 409 - Conflict
  */
@@ -21,7 +21,7 @@ export namespace CreatePreset {
   }
 
   /**
-   * statusCode: 200 - OK
+   * statusCode: 201 - Created
    */
   export class Response {
     preset: Preset;
