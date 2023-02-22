@@ -4,7 +4,7 @@ export type PrismaErrorCodesMapping = {
   [key: string]: {
     httpStatusCode: HttpStatus;
     message(msg: string): string;
-  };
+  } | undefined;
 };
 
 export const prismaErrorCodes: PrismaErrorCodesMapping = {

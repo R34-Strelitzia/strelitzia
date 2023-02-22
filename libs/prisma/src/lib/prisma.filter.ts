@@ -49,7 +49,8 @@ export class PrismaFilter extends BaseExceptionFilter {
   ): string {
     const truncatedMessage = exception.message.split('invocation:')[1]?.trim();
     const formattedMessage =
-      prismaErrorCodes[exception.code].message(truncatedMessage);
-    return formattedMessage;
+      prismaErrorCodes[exception.code]?.message(truncatedMessage);
+
+    return formattedMessage ?? '';
   }
 }
