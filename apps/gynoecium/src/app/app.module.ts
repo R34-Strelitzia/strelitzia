@@ -1,11 +1,20 @@
 import { Module } from '@nestjs/common';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from '@strelitzia/auth';
+import { UsersModule } from '@strelitzia/users';
+import { PrismaModule } from '@strelitzia/prisma';
+import { FavoritesModule } from '@strelitzia/favorites';
+import { validate } from '@strelitzia/config-validation';
+import { TagPresetsModule } from '@strelitzia/tag-presets';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    UsersModule,
+    AuthModule,
+    FavoritesModule,
+    TagPresetsModule,
+    PrismaModule,
+    ConfigModule.forRoot({ cache: true, validate }),
+  ],
 })
 export class AppModule {}

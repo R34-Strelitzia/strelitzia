@@ -1,9 +1,10 @@
-import { IsJWT } from 'class-validator';
-import type { APIError } from '../error';
 import type { User } from '../users';
+import type { APIError } from '../error';
 
 /**
  * POST /auth/refresh/
+ *
+ * Required Bearer Auth with **Refresh Token**
  *
  * Success: 200 - User Entity, access and refresh tokens in Response Body
  *
@@ -12,10 +13,7 @@ import type { User } from '../users';
 export namespace RefreshJwt {
   export const path = '/auth/refresh/';
 
-  export class Request {
-    @IsJWT()
-    refreshToken: string;
-  }
+  export class Request {}
 
   /**
    * statusCode: 200 - OK

@@ -6,7 +6,7 @@ import type { Favorite } from './favorite';
  *
  * Required Bearer Auth
  *
- * Success: 200 - Favorite Entity in Response Body
+ * Success: 201 - Favorite Entity in Response Body
  *
  * Error: 403 - Forbidden, 409 - Conflict
  */
@@ -22,7 +22,7 @@ export namespace AddFavorite {
   export class Request {}
 
   /**
-   * statusCode: 200 - OK
+   * statusCode: 201 - Created
    */
   export class Response {
     favorite: Favorite;

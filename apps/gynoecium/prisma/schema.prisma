@@ -1,13 +1,59 @@
 generator client {
   provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./db.sql"
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [citext()]
 }
 
-model Todo {
-  id String @id @default(cuid())
-  @@map("todos")
+model User {
+  id       String      @id @default(uuid()) @db.Uuid
+  username String      @unique @db.Citext
+  email    String      @unique @db.Citext
+  hash     String
+  Favorite Favorite[]
+  Preset   TagPreset[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Favorite {
+  userId String @map("user_id") @db.Uuid
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId Int    @map("post_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([userId, postId])
+  @@map("favorites")
+}
+
+model TagPreset {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @map("user_id") @db.Uuid
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title        String
+  allowed      String[]
+  banned       String[]
+  minimalScore Int      @default(0) @map("minimal_score")
+  rating       Rating
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([id, userId])
+  @@map("tag_presets")
+}
+
+enum Rating {
+  EXPLICIT
+  SAFE
+  QUESTIONABLE
+  ANY
 }

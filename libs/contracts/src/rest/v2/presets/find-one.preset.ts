@@ -1,5 +1,5 @@
 import type { APIError } from '../error';
-import type { Preset } from './preset';
+import type { PresetWithID } from './preset';
 
 /**
  * GET /presets/:id
@@ -25,13 +25,13 @@ export namespace FindOnePresets {
    * statusCode: 200 - OK
    */
   export class Response {
-    presets: Preset;
+    preset: Required<PresetWithID>;
   }
 
   /**
    * statusCode:
-   * 403 - forbidden, need auth
-   * 404 - not found created preset by this user
+   * 403 - Forbidden, need auth
+   * 404 - Preset Not Found
    */
   export type ResponseError = APIError<403 | 404>;
 }
