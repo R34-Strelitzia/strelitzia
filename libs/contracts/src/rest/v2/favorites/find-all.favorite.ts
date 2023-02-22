@@ -22,7 +22,7 @@ export namespace FindAllFavorite {
    * statusCode: 200 - OK
    */
   export class Response {
-    favorite: Favorite[];
+    favorites: Favorite[];
   }
 
   /**
