@@ -22,27 +22,27 @@ export class AuthService {
     private readonly configService: ConfigService<EnvironmentVariables>
   ) {}
 
-  public async signup(dto: SignUpLocal.Request): Promise<SignUpLocal.Response> {
-    const passwordHash = await this.passwordService.hash(dto.password);
+  public async signup(signupDTO: SignUpLocal.Request): Promise<SignUpLocal.Response> {
+    const passwordHash = await this.passwordService.hash(signupDTO.password);
 
     const user = await this.usersService.create({
-      username: dto.user.username,
-      email: dto.user.email,
+      username: signupDTO.user.username,
+      email: signupDTO.user.email,
       hash: passwordHash,
     });
 
     return this.createAuthResponse(user.id, user.username, user.email);
   }
 
-  public async login(dto: LoginLocal.Request): Promise<LoginLocal.Response> {
-    const user = await this.usersService.findByUsername(dto.username);
+  public async login(loginDTO: LoginLocal.Request): Promise<LoginLocal.Response> {
+    const user = await this.usersService.findByUsername(loginDTO.username);
 
     if (!user) {
       throw new UnauthorizedException();
     }
 
     const isPasswordCorrect = await this.passwordService.compare(
-      dto.password,
+      loginDTO.password,
       user.hash
     );
 

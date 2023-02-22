@@ -36,9 +36,9 @@ export class FavoritesController {
   @UseGuards(JwtAuthGuard)
   findAll(
     @UserId() userId: string,
-    @Body() dto: FindAllFavorite.Request
+    @Body() findAllFavoritesDTO: FindAllFavorite.Request
   ): Promise<FindAllFavorite.Response> {
-    return this.favoritesService.findAll(userId, dto);
+    return this.favoritesService.findAll(userId, findAllFavoritesDTO);
   }
 
   @Delete(RemoveFavorite.path + ':id')

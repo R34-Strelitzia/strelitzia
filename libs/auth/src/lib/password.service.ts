@@ -4,7 +4,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class PasswordService {
   /**
-   *
    * @param {string} password
    * @returns {Promise<string>} password hash
    */
@@ -15,7 +14,6 @@ export class PasswordService {
   }
 
   /**
-   *
    * @param {string} password
    * @param {string} hash
    * @returns {Promise<boolean>} compare result

@@ -25,9 +25,9 @@ export class TagPresetsService {
 
   async create(
     userId: string,
-    dto: CreatePreset.Request
+    createPresetDTO: CreatePreset.Request
   ): Promise<CreatePreset.Response> {
-    const { title, allowed, banned } = dto.preset;
+    const { title, allowed, banned } = createPresetDTO.preset;
 
     const preset = await this.prismaService.tagPreset.create({
       data: { userId, title, allowed, banned, rating: Rating.ANY },
@@ -39,12 +39,12 @@ export class TagPresetsService {
 
   async findAll(
     userId: string,
-    dto: FindAllPresets.Request
+    findAllPresetsDTO: FindAllPresets.Request
   ): Promise<FindAllPresets.Response> {
     const presets = await this.prismaService.tagPreset.findMany({
       where: { userId },
-      take: dto.pagination.size,
-      skip: dto.pagination.size * dto.pagination.page,
+      take: findAllPresetsDTO.pagination.size,
+      skip: findAllPresetsDTO.pagination.size * findAllPresetsDTO.pagination.page,
       orderBy: { updatedAt: 'desc' },
       select: this.select,
     });
@@ -63,11 +63,11 @@ export class TagPresetsService {
 
   async update(
     userId: string,
-    dto: UpdatePreset.Request
+    updatePresetDTO: UpdatePreset.Request
   ): Promise<UpdatePreset.Response> {
     const preset = await this.prismaService.tagPreset.update({
-      where: { id_userId: { id: dto.preset.id, userId } },
-      data: { ...dto.preset },
+      where: { id_userId: { id: updatePresetDTO.preset.id, userId } },
+      data: { ...updatePresetDTO.preset },
       select: this.select,
     });
 

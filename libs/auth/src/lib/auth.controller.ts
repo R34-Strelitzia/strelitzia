@@ -10,13 +10,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  signup(@Body() dto: SignUpLocal.Request): Promise<SignUpLocal.Response> {
-    return this.authService.signup(dto);
+  signup(@Body() signUpDTO: SignUpLocal.Request): Promise<SignUpLocal.Response> {
+    return this.authService.signup(signUpDTO);
   }
 
   @Post('login')
-  login(@Body() dto: LoginLocal.Request): Promise<LoginLocal.Response> {
-    return this.authService.login(dto);
+  login(@Body() loginDTO: LoginLocal.Request): Promise<LoginLocal.Response> {
+    return this.authService.login(loginDTO);
   }
 
   @UseGuards(JwtRefreshAuthGuard)

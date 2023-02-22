@@ -2,7 +2,7 @@ import { HttpStatus } from "@nestjs/common";
 
 export type PrismaErrorCodesMapping = {
   [key: string]: {
-    httpStatusCode: number;
+    httpStatusCode: HttpStatus;
     message(msg: string): string;
   };
 };

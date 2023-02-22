@@ -1,6 +1,6 @@
 export interface IJwtPayload {
   iss: string;
-  sub?: string;
+  sub: string;
   iat: number;
   exp: number;
   type: TokenType;

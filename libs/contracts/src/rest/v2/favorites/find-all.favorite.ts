@@ -3,7 +3,7 @@ import { IsNotEmptyObject, ValidateNested } from 'class-validator';
 
 import type { APIError } from '../error';
 import type { Favorite } from './favorite';
-import { Pagination } from '../pagination/pagination';
+import { Pagination } from '../pagination';
 /**
  * GET /favorites/
  *

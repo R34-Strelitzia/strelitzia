@@ -30,18 +30,18 @@ export class TagPresetsController {
   @UseGuards(JwtAuthGuard)
   create(
     @UserId() userId: string,
-    @Body() dto: CreatePreset.Request
+    @Body() createPresetDTO: CreatePreset.Request
   ): Promise<CreatePreset.Response> {
-    return this.tagPresetsService.create(userId, dto);
+    return this.tagPresetsService.create(userId, createPresetDTO);
   }
 
   @Get(FindAllPresets.path)
   @UseGuards(JwtAuthGuard)
   findAll(
     @UserId() userId: string,
-    @Body() dto: FindAllPresets.Request
+    @Body() findAllPresetsDTO: FindAllPresets.Request
   ): Promise<FindAllPresets.Response> {
-    return this.tagPresetsService.findAll(userId, dto);
+    return this.tagPresetsService.findAll(userId, findAllPresetsDTO);
   }
 
   @Get(FindOnePresets.path + ':id')
@@ -57,9 +57,9 @@ export class TagPresetsController {
   @UseGuards(JwtAuthGuard)
   update(
     @UserId() userId: string,
-    @Body() dto: UpdatePreset.Request
+    @Body() updatePresetDTO: UpdatePreset.Request
   ): Promise<UpdatePreset.Response> {
-    return this.tagPresetsService.update(userId, dto);
+    return this.tagPresetsService.update(userId, updatePresetDTO);
   }
 
   @Delete(DeletePreset.path + ':id')

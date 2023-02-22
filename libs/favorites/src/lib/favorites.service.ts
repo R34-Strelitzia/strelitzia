@@ -13,20 +13,21 @@ export class FavoritesService {
   async add(userId: string, postId: number): Promise<AddFavorite.Response> {
     const favorite = await this.prismaService.favorite.create({
       data: { userId, postId },
+      select: { postId: true },
     });
 
-    return { favorite: { postId: favorite.postId } };
+    return { favorite };
   }
 
   async findAll(
     userId: string,
-    dto: FindAllFavorite.Request
+    findAllFavoritesDTO: FindAllFavorite.Request
   ): Promise<FindAllFavorite.Response> {
     const favorites = await this.prismaService.favorite.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
-      take: dto.pagination.size,
-      skip: dto.pagination.size * dto.pagination.page,
+      take: findAllFavoritesDTO.pagination.size,
+      skip: findAllFavoritesDTO.pagination.size * findAllFavoritesDTO.pagination.page,
       select: { postId: true },
     });
 

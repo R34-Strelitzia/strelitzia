@@ -3,7 +3,7 @@ import { IsNotEmptyObject, ValidateNested } from 'class-validator';
 
 import type { APIError } from '../error';
 import type { PresetWithID } from './preset';
-import { Pagination } from '../pagination/pagination';
+import { Pagination } from '../pagination';
 
 /**
  * GET /presets/

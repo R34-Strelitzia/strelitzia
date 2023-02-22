@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
-import { IAuthenticatedUser } from '../interfaces/auth-user.interface';
+import { IAuthenticatedUser } from '../interfaces';
 
 /**
  * Extract userId after pass JwtAuthGuard
