@@ -4,6 +4,7 @@ import {
   CreatePreset,
   DeletePreset,
   FindAllPresets,
+  FindOnePresets,
   PresetWithID,
   Rating,
   UpdatePreset,
@@ -49,6 +50,15 @@ export class TagPresetsService {
     });
 
     return { presets };
+  }
+
+  async findOne(userId: string, id: string): Promise<FindOnePresets.Response> {
+    const preset = await this.prismaService.tagPreset.findUnique({
+      where: { id_userId: { id, userId } },
+      select: this.select,
+    });
+
+    return { preset };
   }
 
   async update(

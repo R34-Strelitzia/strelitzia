@@ -16,6 +16,7 @@ import {
   CreatePreset,
   DeletePreset,
   FindAllPresets,
+  FindOnePresets,
   UpdatePreset,
 } from '@strelitzia/contracts/v2';
 
@@ -41,6 +42,15 @@ export class TagPresetsController {
     @Body() dto: FindAllPresets.Request
   ): Promise<FindAllPresets.Response> {
     return this.tagPresetsService.findAll(userId, dto);
+  }
+
+  @Get(FindOnePresets.path + ':id')
+  @UseGuards(JwtAuthGuard)
+  findOne(
+    @UserId() userId: string,
+    @Param('id', ParseUUIDPipe) id: string
+  ): Promise<FindOnePresets.Response> {
+    return this.tagPresetsService.findOne(userId, id);
   }
 
   @Put(UpdatePreset.path)
