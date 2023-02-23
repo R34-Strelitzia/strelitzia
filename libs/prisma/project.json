@@ -12,5 +12,5 @@
       }
     }
   },
-  "tags": ["backend"]
+  "tags": ["scoped:backend"]
 }

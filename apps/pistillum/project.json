@@ -3,7 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/pistillum/src",
-  "tags": [],
   "targets": {
     "build": {
       "executor": "@nrwl/vite:build",
@@ -54,5 +53,6 @@
         "lintFilePatterns": ["apps/pistillum/**/*.ts"]
       }
     }
-  }
+  },
+  "tags": ["scoped:frontend"]
 }
