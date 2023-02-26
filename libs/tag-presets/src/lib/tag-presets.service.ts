@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@strelitzia/prisma';
 import {
   CreatePreset,
@@ -44,7 +44,8 @@ export class TagPresetsService {
     const presets = await this.prismaService.tagPreset.findMany({
       where: { userId },
       take: findAllPresetsDTO.pagination.size,
-      skip: findAllPresetsDTO.pagination.size * findAllPresetsDTO.pagination.page,
+      skip:
+        findAllPresetsDTO.pagination.size * findAllPresetsDTO.pagination.page,
       orderBy: { updatedAt: 'desc' },
       select: this.select,
     });
@@ -57,6 +58,10 @@ export class TagPresetsService {
       where: { id_userId: { id, userId } },
       select: this.select,
     });
+
+    if (!preset) {
+      throw new NotFoundException();
+    }
 
     return { preset };
   }
