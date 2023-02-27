@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsStrongPassword, ValidateNested } from 'class-validator';
+import { IsNotEmptyObject, IsStrongPassword, ValidateNested } from 'class-validator';
 
 import { User } from '../users';
 import type { APIError } from '../error';
@@ -15,6 +15,7 @@ export namespace SignUpLocal {
   export const path = '/auth/signup/';
 
   export class Request {
+    @IsNotEmptyObject()
     @ValidateNested()
     @Type(() => User)
     user: User;
