@@ -21,7 +21,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly passwordService: PasswordService,
     @Inject(authenticationConfig.KEY)
-    private authConfig: ConfigType<typeof authenticationConfig>
+    private readonly authConfig: ConfigType<typeof authenticationConfig>
   ) {}
 
   public async signup(

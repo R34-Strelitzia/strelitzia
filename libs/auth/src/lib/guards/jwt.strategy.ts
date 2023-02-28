@@ -10,7 +10,7 @@ import { IAuthenticatedUser, IJwtPayload } from '../interfaces';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(authenticationConfig.KEY)
-    private authConfig: ConfigType<typeof authenticationConfig>
+    private readonly authConfig: ConfigType<typeof authenticationConfig>
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

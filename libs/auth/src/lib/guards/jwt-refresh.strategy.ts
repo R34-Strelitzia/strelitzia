@@ -13,7 +13,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
 ) {
   constructor(
     @Inject(authenticationConfig.KEY)
-    private authConfig: ConfigType<typeof authenticationConfig>
+    private readonly authConfig: ConfigType<typeof authenticationConfig>
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
