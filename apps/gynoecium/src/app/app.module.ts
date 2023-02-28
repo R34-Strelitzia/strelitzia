@@ -4,17 +4,16 @@ import { AuthModule } from '@strelitzia/auth';
 import { UsersModule } from '@strelitzia/users';
 import { PrismaModule } from '@strelitzia/prisma';
 import { FavoritesModule } from '@strelitzia/favorites';
-import { validate } from '@strelitzia/config-validation';
 import { TagPresetsModule } from '@strelitzia/tag-presets';
 
 @Module({
   imports: [
+    PrismaModule,
     UsersModule,
     AuthModule,
     FavoritesModule,
     TagPresetsModule,
-    PrismaModule,
-    ConfigModule.forRoot({ cache: true, validate }),
+    ConfigModule.forRoot({ cache: true, expandVariables: true }),
   ],
 })
 export class AppModule {}

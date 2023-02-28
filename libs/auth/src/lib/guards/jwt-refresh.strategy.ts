@@ -1,9 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { EnvironmentVariables } from '@strelitzia/config-validation';
+import { authenticationConfig } from '../config';
 import { IAuthenticatedUser, IJwtRefreshPayload } from '../interfaces';
 
 @Injectable()
@@ -12,12 +12,13 @@ export class JwtRefreshStrategy extends PassportStrategy(
   'jwt-refresh'
 ) {
   constructor(
-    private readonly configService: ConfigService<EnvironmentVariables>
+    @Inject(authenticationConfig.KEY)
+    private readonly authConfig: ConfigType<typeof authenticationConfig>
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get('JWT_REFRESH_SECRET'),
+      secretOrKey: authConfig.refresh.secret,
     });
   }
 

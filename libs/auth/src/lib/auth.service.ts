@@ -1,7 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-
+import { ConfigType } from '@nestjs/config';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import {
   LoginLocal,
   RefreshJwt,
@@ -9,9 +8,10 @@ import {
   User as UserViewModel,
 } from '@strelitzia/contracts/v2';
 import { UsersService } from '@strelitzia/users';
+
+import { authenticationConfig } from './config';
 import { PasswordService } from './password.service';
 import { IJwtPayload, IJwtRefreshPayload } from './interfaces';
-import { EnvironmentVariables } from '@strelitzia/config-validation';
 
 @Injectable()
 export class AuthService {
@@ -19,10 +19,13 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
     private readonly passwordService: PasswordService,
-    private readonly configService: ConfigService<EnvironmentVariables>
+    @Inject(authenticationConfig.KEY)
+    private readonly authConfig: ConfigType<typeof authenticationConfig>
   ) {}
 
-  public async signup(signupDTO: SignUpLocal.Request): Promise<SignUpLocal.Response> {
+  public async signup(
+    signupDTO: SignUpLocal.Request
+  ): Promise<SignUpLocal.Response> {
     const passwordHash = await this.passwordService.hash(signupDTO.password);
 
     const user = await this.usersService.create({
@@ -34,7 +37,9 @@ export class AuthService {
     return this.createAuthResponse(user.id, user.username, user.email);
   }
 
-  public async login(loginDTO: LoginLocal.Request): Promise<LoginLocal.Response> {
+  public async login(
+    loginDTO: LoginLocal.Request
+  ): Promise<LoginLocal.Response> {
     const user = await this.usersService.findByUsername(loginDTO.username);
 
     if (!user) {
@@ -81,10 +86,10 @@ export class AuthService {
       'sub' | 'type'
     >;
 
-    const token = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get('JWT_ACCESS_SECRET'),
-      expiresIn: this.configService.get('JWT_ACCESS_EXPIRES_SECONDS'),
-    });
+    const token = await this.jwtService.signAsync(
+      payload,
+      this.authConfig.access
+    );
 
     return token;
   }
@@ -95,10 +100,10 @@ export class AuthService {
       'sub' | 'type'
     >;
 
-    const token = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get('JWT_REFRESH_SECRET'),
-      expiresIn: this.configService.get('JWT_REFRESH_EXPIRES_SECONDS'),
-    });
+    const token = await this.jwtService.signAsync(
+      payload,
+      this.authConfig.refresh
+    );
 
     return token;
   }

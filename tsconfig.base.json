@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@strelitzia/auth": ["libs/auth/src/index.ts"],
-      "@strelitzia/config-validation": ["libs/config-validation/src/index.ts"],
       "@strelitzia/contracts/v2": ["libs/contracts/src/v2.ts"],
       "@strelitzia/favorites": ["libs/favorites/src/index.ts"],
       "@strelitzia/prisma": ["libs/prisma/src/index.ts"],

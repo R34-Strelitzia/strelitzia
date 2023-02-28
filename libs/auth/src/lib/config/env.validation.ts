@@ -6,8 +6,9 @@ import {
   validateSync,
 } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
+import { registerAs } from '@nestjs/config';
 
-export class EnvironmentVariables {
+class EnvironmentVariables {
   @IsString()
   @IsNotEmpty()
   JWT_ISSUER: string;
@@ -29,7 +30,7 @@ export class EnvironmentVariables {
   JWT_REFRESH_EXPIRES_SECONDS: number;
 }
 
-export function validate(config: Record<string, unknown>) {
+function validate(config: Record<string, unknown>) {
   const validatedConfig = plainToInstance(EnvironmentVariables, config, {
     enableImplicitConversion: true,
   });
@@ -42,5 +43,19 @@ export function validate(config: Record<string, unknown>) {
     throw new Error(errors.toString());
   }
 
-  return validatedConfig;
+  return {
+    issuer: validatedConfig.JWT_ISSUER,
+    access: {
+      secret: validatedConfig.JWT_ACCESS_SECRET,
+      expiresIn: validatedConfig.JWT_ACCESS_EXPIRES_SECONDS,
+    },
+    refresh: {
+      secret: validatedConfig.JWT_REFRESH_SECRET,
+      expiresIn: validatedConfig.JWT_REFRESH_EXPIRES_SECONDS,
+    },
+  };
 }
+
+export const authenticationConfig = registerAs('AUTH_CONFIG', () =>
+  validate(process.env)
+);

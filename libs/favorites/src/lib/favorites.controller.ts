@@ -19,7 +19,7 @@ import { JwtAuthGuard, UserId } from '@strelitzia/auth';
 
 import { FavoritesService } from './favorites.service';
 
-@Controller()
+@Controller({ version: '2' })
 export class FavoritesController {
   constructor(private favoritesService: FavoritesService) {}
 

@@ -1,26 +1,26 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-
-import { AuthService } from './auth.service';
 import { UsersModule } from '@strelitzia/users';
 import { PrismaModule } from '@strelitzia/prisma';
+import { ConfigModule, ConfigType } from '@nestjs/config';
+
+import { AuthService } from './auth.service';
+import { authenticationConfig } from './config';
 import { AuthController } from './auth.controller';
 import { PasswordService } from './password.service';
 import { JwtStrategy, JwtRefreshStrategy } from './guards';
-import { EnvironmentVariables } from '@strelitzia/config-validation';
 
 @Module({
   imports: [
     UsersModule,
+    ConfigModule.forFeature(authenticationConfig),
     JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService<EnvironmentVariables>) => ({
-        signOptions: { issuer: configService.get('JWT_ISSUER') },
+      imports: [...authenticationConfig.asProvider().imports],
+      useFactory: (authConfig: ConfigType<typeof authenticationConfig>) => ({
+        signOptions: { issuer: authConfig.issuer },
       }),
-      inject: [ConfigService],
+      inject: [...authenticationConfig.asProvider().inject],
     }),
-    ConfigModule,
     PrismaModule,
   ],
   controllers: [AuthController],
