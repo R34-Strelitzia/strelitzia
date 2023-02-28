@@ -22,7 +22,7 @@ import {
 
 import { TagPresetsService } from './tag-presets.service';
 
-@Controller()
+@Controller({ version: '2' })
 export class TagPresetsController {
   constructor(private tagPresetsService: TagPresetsService) {}
 
