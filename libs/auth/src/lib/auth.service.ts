@@ -1,7 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-
 import {
   LoginLocal,
   RefreshJwt,
