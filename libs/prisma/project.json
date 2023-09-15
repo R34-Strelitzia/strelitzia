@@ -4,6 +4,22 @@
   "sourceRoot": "libs/prisma/src",
   "projectType": "library",
   "targets": {
+    "studio": {
+      "command": "prisma studio --schema=schema/schema.prisma",
+      "options": { "cwd": "libs/prisma" }
+    },
+    "generate": {
+      "command": "prisma generate --schema=schema/schema.prisma",
+      "options": { "cwd": "libs/prisma" }
+    },
+    "push": {
+      "command": "prisma db push --schema=schema/schema.prisma",
+      "options": { "cwd": "libs/prisma" }
+    },
+    "migrate": {
+      "command": "prisma migrate dev --schema=schema/schema.prisma",
+      "options": { "cwd": "libs/prisma" }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
