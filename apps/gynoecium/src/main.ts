@@ -1,7 +1,7 @@
 import helmet from 'helmet';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { PrismaFilter, PrismaService } from '@strelitzia/prisma';
+import { PrismaFilter } from '@strelitzia/prisma';
 
 import { AppModule } from './app/app.module';
 
@@ -12,11 +12,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   app.enableVersioning();
 
-  /*
-   * Check this: https://docs.nestjs.com/recipes/prisma#issues-with-enableshutdownhooks
-   */
-  const prismaService = app.get(PrismaService);
-  await prismaService.enableShutdownHooks(app);
+  app.enableShutdownHooks();
 
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaFilter(httpAdapter));
@@ -30,7 +26,7 @@ async function bootstrap() {
   await app.listen(port, '0.0.0.0');
 
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
   );
 }
 
