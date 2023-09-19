@@ -1,6 +1,16 @@
 {
-  "extends": ["../../.eslintrc.json"],
+  "extends": [
+    "../../.eslintrc.json",
+    "plugin:@darraghor/nestjs-typed/recommended"
+  ],
+  "plugins": ["@darraghor/nestjs-typed"],
   "ignorePatterns": ["!**/*"],
+  "parserOptions": {
+    "project": ["apps/gynoecium/tsconfig.*?.json"]
+  },
+  "rules": {
+    "@darraghor/nestjs-typed/injectable-should-be-provided": "off"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
