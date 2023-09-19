@@ -1,0 +1,22 @@
+{
+  "name": "swagger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/swagger/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/swagger/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": [
+    "scoped:backend"
+  ]
+}
