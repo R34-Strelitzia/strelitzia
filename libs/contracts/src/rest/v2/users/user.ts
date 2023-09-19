@@ -1,9 +1,5 @@
-import { IsEmail, Length } from "class-validator";
-
-export class User {
-  @Length(4, 20)
+export interface User {
   username: string;
 
-  @IsEmail()
   email: string;
 }

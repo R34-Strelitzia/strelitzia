@@ -1,4 +1,3 @@
-import { IsString } from 'class-validator';
 import type { APIError } from '../error';
 import type { User } from '../users';
 
@@ -12,18 +11,16 @@ import type { User } from '../users';
 export namespace LoginLocal {
   export const path = '/auth/login/';
 
-  export class Request {
-    @IsString()
+  export interface Request {
     username: string;
 
-    @IsString()
     password: string;
   }
 
   /**
    * statusCode: 200 - OK
    */
-  export class Response {
+  export interface Response {
     user: User;
     accessToken: string;
     refreshToken: string;
