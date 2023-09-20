@@ -1,5 +1,5 @@
-import type { User } from '../users';
 import type { APIError } from '../error';
+import { IAuthResponse } from './auth.response';
 
 /**
  * POST /auth/refresh/
@@ -18,11 +18,7 @@ export namespace RefreshJwt {
   /**
    * statusCode: 200 - OK
    */
-  export interface Response {
-    user: User;
-    accessToken: string;
-    refreshToken: string;
-  }
+  export interface Response extends IAuthResponse {}
 
   /**
    * statusCode:

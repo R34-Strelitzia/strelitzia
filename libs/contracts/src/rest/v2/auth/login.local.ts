@@ -1,5 +1,5 @@
 import type { APIError } from '../error';
-import type { User } from '../users';
+import { IAuthResponse } from './auth.response';
 
 /**
  * POST /auth/login/
@@ -20,11 +20,7 @@ export namespace LoginLocal {
   /**
    * statusCode: 200 - OK
    */
-  export interface Response {
-    user: User;
-    accessToken: string;
-    refreshToken: string;
-  }
+  export interface Response extends IAuthResponse {}
 
   /**
    * statusCode:

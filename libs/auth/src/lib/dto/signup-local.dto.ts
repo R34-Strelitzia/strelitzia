@@ -8,29 +8,16 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 import { SignUpLocal } from '@strelitzia/contracts/v2';
-import { UserDto } from './user.dto';
-
+import { UserEntity } from '@strelitzia/users';
 
 export class SignUpLocalDTO implements SignUpLocal.Request {
   @ApiProperty()
   @IsNotEmptyObject()
   @ValidateNested()
-  @Type(() => UserDto)
-  user: UserDto;
+  @Type(() => UserEntity)
+  user: UserEntity;
 
   @ApiProperty()
   @IsStrongPassword()
   password: string;
-}
-
-export class SignUpLocalResponse implements SignUpLocal.Response {
-  @ApiProperty()
-  @Type(() => UserDto)
-  user: UserDto;
-
-  @ApiProperty()
-  accessToken: string;
-
-  @ApiProperty()
-  refreshToken: string;
 }

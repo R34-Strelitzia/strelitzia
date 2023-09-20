@@ -5,7 +5,7 @@ import {
   LoginLocal,
   RefreshJwt,
   SignUpLocal,
-  User as UserViewModel,
+  IUser as UserViewModel,
 } from '@strelitzia/contracts/v2';
 import { UsersService } from '@strelitzia/users';
 

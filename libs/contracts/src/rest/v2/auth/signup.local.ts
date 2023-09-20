@@ -1,5 +1,6 @@
-import { User } from '../users';
+import { IUser } from '../users';
 import type { APIError } from '../error';
+import { IAuthResponse } from './auth.response';
 
 /**
  * POST /auth/signup/
@@ -12,7 +13,7 @@ export namespace SignUpLocal {
   export const path = '/auth/signup/';
 
   export interface Request {
-    user: User;
+    user: IUser;
 
     /**
      * The password must be strong!
@@ -25,11 +26,7 @@ export namespace SignUpLocal {
   /**
    * statusCode: 201 - Created
    */
-  export interface Response {
-    user: User;
-    accessToken: string;
-    refreshToken: string;
-  }
+  export interface Response extends IAuthResponse {}
 
   /**
    * statusCode:
