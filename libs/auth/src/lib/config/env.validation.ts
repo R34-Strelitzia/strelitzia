@@ -57,5 +57,5 @@ function validate(config: Record<string, unknown>) {
 }
 
 export const authenticationConfig = registerAs('AUTH_CONFIG', () =>
-  validate(process.env)
+  validate(process.env),
 );

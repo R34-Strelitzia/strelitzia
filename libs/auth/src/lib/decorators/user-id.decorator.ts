@@ -12,5 +12,5 @@ export const UserId = createParamDecorator(
       .switchToHttp()
       .getRequest<unknown & { user: IAuthenticatedUser }>();
     return request.user.id;
-  }
+  },
 );

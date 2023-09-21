@@ -27,7 +27,7 @@ export class FavoritesController {
   @UseGuards(JwtAuthGuard)
   add(
     @UserId() userId: string,
-    @Param('id', ParseIntPipe) postId: number
+    @Param('id', ParseIntPipe) postId: number,
   ): Promise<AddFavorite.Response> {
     return this.favoritesService.add(userId, postId);
   }
@@ -36,7 +36,7 @@ export class FavoritesController {
   @UseGuards(JwtAuthGuard)
   findAll(
     @UserId() userId: string,
-    @Body() findAllFavoritesDTO: FindAllFavorite.Request
+    @Body() findAllFavoritesDTO: FindAllFavorite.Request,
   ): Promise<FindAllFavorite.Response> {
     return this.favoritesService.findAll(userId, findAllFavoritesDTO);
   }
@@ -46,7 +46,7 @@ export class FavoritesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(
     @UserId() userId: string,
-    @Param('id', ParseIntPipe) postId: number
+    @Param('id', ParseIntPipe) postId: number,
   ): Promise<RemoveFavorite.Response> {
     return this.favoritesService.remove(userId, postId);
   }

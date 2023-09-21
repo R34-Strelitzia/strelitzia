@@ -10,7 +10,7 @@ import {
 
 import { Rating, RatingTitle } from './rating';
 
-export class Preset {;
+export class Preset {
   @IsString()
   @Length(3, 30)
   title: string;

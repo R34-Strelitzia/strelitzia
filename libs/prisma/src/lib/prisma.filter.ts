@@ -22,7 +22,7 @@ export class PrismaFilter extends BaseExceptionFilter {
 
   override catch(
     exception: Prisma.PrismaClientKnownRequestError,
-    host: ArgumentsHost
+    host: ArgumentsHost,
   ) {
     const statusCode = prismaErrorCodes[exception.code]?.httpStatusCode;
 
@@ -33,9 +33,9 @@ export class PrismaFilter extends BaseExceptionFilter {
 
       return super.catch(
         new InternalServerErrorException(
-          `Internal Server Error TraceID: ${exceptionTraceId}`
+          `Internal Server Error TraceID: ${exceptionTraceId}`,
         ),
-        host
+        host,
       );
     }
 
@@ -45,7 +45,7 @@ export class PrismaFilter extends BaseExceptionFilter {
   }
 
   private formatPrismaExceptionMessage(
-    exception: Prisma.PrismaClientKnownRequestError
+    exception: Prisma.PrismaClientKnownRequestError,
   ): string {
     const truncatedMessage = exception.message.split('invocation:')[1]?.trim();
     const formattedMessage =

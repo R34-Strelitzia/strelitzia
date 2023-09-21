@@ -7,7 +7,7 @@ export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
 
   public create(
-    user: Pick<Prisma.UserCreateInput, 'username' | 'email' | 'hash'>
+    user: Pick<Prisma.UserCreateInput, 'username' | 'email' | 'hash'>,
   ): Promise<User> {
     return this.prismaService.user.create({ data: user });
   }

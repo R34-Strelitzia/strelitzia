@@ -1,10 +1,12 @@
-import { HttpStatus } from "@nestjs/common";
+import { HttpStatus } from '@nestjs/common';
 
 export type PrismaErrorCodesMapping = {
-  [key: string]: {
-    httpStatusCode: HttpStatus;
-    message(msg: string): string;
-  } | undefined;
+  [key: string]:
+    | {
+        httpStatusCode: HttpStatus;
+        message(msg: string): string;
+      }
+    | undefined;
 };
 
 export const prismaErrorCodes: PrismaErrorCodesMapping = {
