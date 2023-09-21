@@ -1,8 +1,6 @@
-import { Type } from 'class-transformer';
-import { IsNotEmptyObject, IsStrongPassword, ValidateNested } from 'class-validator';
-
-import { User } from '../users';
+import { IUser } from '../users';
 import type { APIError } from '../error';
+import { IAuthResponse } from './auth.response';
 
 /**
  * POST /auth/signup/
@@ -14,29 +12,21 @@ import type { APIError } from '../error';
 export namespace SignUpLocal {
   export const path = '/auth/signup/';
 
-  export class Request {
-    @IsNotEmptyObject()
-    @ValidateNested()
-    @Type(() => User)
-    user: User;
+  export interface Request {
+    user: IUser;
 
     /**
      * The password must be strong!
      *
      * Min Length 8, Min Uppercase 1, Min Symbols 1, Min Numbers 1
      */
-    @IsStrongPassword()
     password: string;
   }
 
   /**
    * statusCode: 201 - Created
    */
-  export class Response {
-    user: User;
-    accessToken: string;
-    refreshToken: string;
-  }
+  export interface Response extends IAuthResponse {}
 
   /**
    * statusCode:

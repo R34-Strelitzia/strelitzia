@@ -30,7 +30,7 @@ export class TagPresetsController {
   @UseGuards(JwtAuthGuard)
   create(
     @UserId() userId: string,
-    @Body() createPresetDTO: CreatePreset.Request
+    @Body() createPresetDTO: CreatePreset.Request,
   ): Promise<CreatePreset.Response> {
     return this.tagPresetsService.create(userId, createPresetDTO);
   }
@@ -39,7 +39,7 @@ export class TagPresetsController {
   @UseGuards(JwtAuthGuard)
   findAll(
     @UserId() userId: string,
-    @Body() findAllPresetsDTO: FindAllPresets.Request
+    @Body() findAllPresetsDTO: FindAllPresets.Request,
   ): Promise<FindAllPresets.Response> {
     return this.tagPresetsService.findAll(userId, findAllPresetsDTO);
   }
@@ -48,7 +48,7 @@ export class TagPresetsController {
   @UseGuards(JwtAuthGuard)
   findOne(
     @UserId() userId: string,
-    @Param('id', ParseUUIDPipe) id: string
+    @Param('id', ParseUUIDPipe) id: string,
   ): Promise<FindOnePresets.Response> {
     return this.tagPresetsService.findOne(userId, id);
   }
@@ -57,7 +57,7 @@ export class TagPresetsController {
   @UseGuards(JwtAuthGuard)
   update(
     @UserId() userId: string,
-    @Body() updatePresetDTO: UpdatePreset.Request
+    @Body() updatePresetDTO: UpdatePreset.Request,
   ): Promise<UpdatePreset.Response> {
     return this.tagPresetsService.update(userId, updatePresetDTO);
   }
@@ -67,7 +67,7 @@ export class TagPresetsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(
     @UserId() userId: string,
-    @Param('id', ParseUUIDPipe) id: string
+    @Param('id', ParseUUIDPipe) id: string,
   ): Promise<DeletePreset.Response> {
     return this.tagPresetsService.delete(userId, id);
   }

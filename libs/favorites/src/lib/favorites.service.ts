@@ -21,13 +21,15 @@ export class FavoritesService {
 
   async findAll(
     userId: string,
-    findAllFavoritesDTO: FindAllFavorite.Request
+    findAllFavoritesDTO: FindAllFavorite.Request,
   ): Promise<FindAllFavorite.Response> {
     const favorites = await this.prismaService.favorite.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       take: findAllFavoritesDTO.pagination.size,
-      skip: findAllFavoritesDTO.pagination.size * findAllFavoritesDTO.pagination.page,
+      skip:
+        findAllFavoritesDTO.pagination.size *
+        findAllFavoritesDTO.pagination.page,
       select: { postId: true },
     });
 
@@ -40,7 +42,7 @@ export class FavoritesService {
 
   async remove(
     userId: string,
-    postId: number
+    postId: number,
   ): Promise<RemoveFavorite.Response> {
     await this.prismaService.favorite.delete({
       where: { userId_postId: { userId, postId } },

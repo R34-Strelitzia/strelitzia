@@ -25,7 +25,7 @@ export class TagPresetsService {
 
   async create(
     userId: string,
-    createPresetDTO: CreatePreset.Request
+    createPresetDTO: CreatePreset.Request,
   ): Promise<CreatePreset.Response> {
     const { title, allowed, banned } = createPresetDTO.preset;
 
@@ -39,7 +39,7 @@ export class TagPresetsService {
 
   async findAll(
     userId: string,
-    findAllPresetsDTO: FindAllPresets.Request
+    findAllPresetsDTO: FindAllPresets.Request,
   ): Promise<FindAllPresets.Response> {
     const presets = await this.prismaService.tagPreset.findMany({
       where: { userId },
@@ -68,7 +68,7 @@ export class TagPresetsService {
 
   async update(
     userId: string,
-    updatePresetDTO: UpdatePreset.Request
+    updatePresetDTO: UpdatePreset.Request,
   ): Promise<UpdatePreset.Response> {
     const preset = await this.prismaService.tagPreset.update({
       where: { id_userId: { id: updatePresetDTO.preset.id, userId } },

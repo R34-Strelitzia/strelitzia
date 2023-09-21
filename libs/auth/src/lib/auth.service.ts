@@ -5,7 +5,7 @@ import {
   LoginLocal,
   RefreshJwt,
   SignUpLocal,
-  User as UserViewModel,
+  IUser as UserViewModel,
 } from '@strelitzia/contracts/v2';
 import { UsersService } from '@strelitzia/users';
 
@@ -20,11 +20,11 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly passwordService: PasswordService,
     @Inject(authenticationConfig.KEY)
-    private readonly authConfig: ConfigType<typeof authenticationConfig>
+    private readonly authConfig: ConfigType<typeof authenticationConfig>,
   ) {}
 
   public async signup(
-    signupDTO: SignUpLocal.Request
+    signupDTO: SignUpLocal.Request,
   ): Promise<SignUpLocal.Response> {
     const passwordHash = await this.passwordService.hash(signupDTO.password);
 
@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   public async login(
-    loginDTO: LoginLocal.Request
+    loginDTO: LoginLocal.Request,
   ): Promise<LoginLocal.Response> {
     const user = await this.usersService.findByUsername(loginDTO.username);
 
@@ -48,7 +48,7 @@ export class AuthService {
 
     const isPasswordCorrect = await this.passwordService.compare(
       loginDTO.password,
-      user.hash
+      user.hash,
     );
 
     if (!isPasswordCorrect) {
@@ -67,7 +67,7 @@ export class AuthService {
   private async createAuthResponse(
     userId: string,
     username: string,
-    email: string
+    email: string,
   ) {
     const accessToken = await this.createAccessToken(userId);
     const refreshToken = await this.createRefreshToken(userId);
@@ -88,7 +88,7 @@ export class AuthService {
 
     const token = await this.jwtService.signAsync(
       payload,
-      this.authConfig.access
+      this.authConfig.access,
     );
 
     return token;
@@ -102,7 +102,7 @@ export class AuthService {
 
     const token = await this.jwtService.signAsync(
       payload,
-      this.authConfig.refresh
+      this.authConfig.refresh,
     );
 
     return token;

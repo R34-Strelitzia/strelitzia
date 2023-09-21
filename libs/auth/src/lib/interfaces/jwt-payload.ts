@@ -6,6 +6,6 @@ export interface IJwtPayload {
   type: TokenType;
 }
 
-export type IJwtRefreshPayload = IJwtPayload
+export type IJwtRefreshPayload = IJwtPayload;
 
 export type TokenType = 'access' | 'refresh';

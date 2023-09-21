@@ -9,11 +9,11 @@ import { IAuthenticatedUser, IJwtRefreshPayload } from '../interfaces';
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(
   Strategy,
-  'jwt-refresh'
+  'jwt-refresh',
 ) {
   constructor(
     @Inject(authenticationConfig.KEY)
-    private readonly authConfig: ConfigType<typeof authenticationConfig>
+    private readonly authConfig: ConfigType<typeof authenticationConfig>,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

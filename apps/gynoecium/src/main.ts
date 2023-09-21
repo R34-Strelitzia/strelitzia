@@ -4,6 +4,7 @@ import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { PrismaFilter } from '@strelitzia/prisma';
 
 import { AppModule } from './app/app.module';
+import { setupSwagger } from '@strelitzia/backend/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,10 +18,18 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new PrismaFilter(httpAdapter));
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      forbidNonWhitelisted: true,
+      forbidUnknownValues: true,
+    }),
+  );
 
   app.use(helmet());
   app.enableCors();
+
+  setupSwagger(app);
 
   const port = process.env.PORT || 3333;
   await app.listen(port, '0.0.0.0');
