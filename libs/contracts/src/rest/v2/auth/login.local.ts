@@ -1,5 +1,9 @@
+import { IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
+import { UserEntity } from '../users';
 import type { APIError } from '../error';
-import { IAuthResponse } from './auth.response';
+import { IAuthResponse } from './interfaces';
 
 /**
  * POST /auth/login/
@@ -11,16 +15,29 @@ import { IAuthResponse } from './auth.response';
 export namespace LoginLocal {
   export const path = '/auth/login/';
 
-  export interface Request {
+  export class Request {
+    @ApiProperty()
+    @IsString()
     username: string;
 
+    @ApiProperty()
+    @IsString()
     password: string;
   }
 
   /**
    * statusCode: 200 - OK
    */
-  export interface Response extends IAuthResponse {}
+  export class Response implements IAuthResponse {
+    @ApiProperty({ type: () => UserEntity })
+    user: UserEntity;
+
+    @ApiProperty()
+    accessToken: string;
+
+    @ApiProperty()
+    refreshToken: string;
+  }
 
   /**
    * statusCode:

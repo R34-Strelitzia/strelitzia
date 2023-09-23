@@ -1,7 +1,7 @@
-import { IUser } from '../users';
+import { UserEntity } from '../../users';
 
 export interface IAuthResponse {
-  user: IUser;
+  user: UserEntity;
   accessToken: string;
   refreshToken: string;
 }

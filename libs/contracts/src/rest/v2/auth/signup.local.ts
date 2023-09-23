@@ -1,6 +1,14 @@
-import { IUser } from '../users';
+import {
+  IsNotEmptyObject,
+  IsStrongPassword,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
+
+import { UserEntity } from '../users';
 import type { APIError } from '../error';
-import { IAuthResponse } from './auth.response';
+import type { IAuthResponse } from './interfaces';
 
 /**
  * POST /auth/signup/
@@ -12,21 +20,36 @@ import { IAuthResponse } from './auth.response';
 export namespace SignUpLocal {
   export const path = '/auth/signup/';
 
-  export interface Request {
-    user: IUser;
+  export class Request {
+    @ApiProperty()
+    @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => UserEntity)
+    user: UserEntity;
 
     /**
      * The password must be strong!
      *
      * Min Length 8, Min Uppercase 1, Min Symbols 1, Min Numbers 1
      */
+    @ApiProperty()
+    @IsStrongPassword()
     password: string;
   }
 
   /**
    * statusCode: 201 - Created
    */
-  export interface Response extends IAuthResponse {}
+  export class Response implements IAuthResponse {
+    @ApiProperty({ type: () => UserEntity })
+    user: UserEntity;
+
+    @ApiProperty()
+    accessToken: string;
+
+    @ApiProperty()
+    refreshToken: string;
+  }
 
   /**
    * statusCode:
