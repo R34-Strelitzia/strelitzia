@@ -1,5 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Favorite } from './favorite';
 import type { APIError } from '../error';
-import type { Favorite } from './favorite';
 
 /**
  * POST /favorites/:id
@@ -8,7 +10,7 @@ import type { Favorite } from './favorite';
  *
  * Success: 201 - Favorite Entity in Response Body
  *
- * Error: 403 - Forbidden, 409 - Conflict
+ * Error: 400 - Bad Request, 403 - Forbidden, 409 - Conflict
  */
 export namespace AddFavorite {
   /**
@@ -25,6 +27,7 @@ export namespace AddFavorite {
    * statusCode: 201 - Created
    */
   export class Response {
+    @ApiProperty({ type: Favorite })
     favorite: Favorite;
   }
 

@@ -41,7 +41,7 @@ export namespace SignUpLocal {
    * statusCode: 201 - Created
    */
   export class Response implements IAuthResponse {
-    @ApiProperty({ type: () => UserEntity })
+    @ApiProperty({ type: UserEntity })
     user: UserEntity;
 
     @ApiProperty()

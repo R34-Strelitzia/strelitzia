@@ -7,7 +7,7 @@ import type { APIError } from '../error';
  *
  * Success: 204 - Empty Response Body
  *
- * Error: 403 - Forbidden, 404 - Not Found
+ * Error: 400 - Validation Error, 403 - Forbidden, 404 - Not Found
  */
 export namespace RemoveFavorite {
   /**

@@ -5,11 +5,17 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpStatus,
   Post,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 
 import { UserId } from './decorators';
@@ -23,7 +29,7 @@ import { LoginLocal, RefreshJwt, SignUpLocal } from '@strelitzia/contracts/v2';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiResponse({ status: 201, type: SignUpLocal.Response })
+  @ApiResponse({ status: HttpStatus.CREATED, type: SignUpLocal.Response })
   @ApiException(() => BadRequestException, { description: 'validation error' })
   @ApiException(() => ConflictException, {
     description: 'email or username already taken',
@@ -35,19 +41,19 @@ export class AuthController {
     return this.authService.signup(signUpDTO);
   }
 
-  @ApiResponse({ status: 200, type: LoginLocal.Response })
+  @ApiOkResponse({ type: LoginLocal.Response })
   @ApiException(() => BadRequestException, { description: 'validation error' })
   @ApiException(() => UnauthorizedException, {
     description: 'incorrect credentials',
   })
   @Post(LoginLocal.path)
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   login(@Body() loginDTO: LoginLocal.Request): Promise<LoginLocal.Response> {
     return this.authService.login(loginDTO);
   }
 
   @ApiBearerAuth()
-  @ApiResponse({ status: 200, type: RefreshJwt.Response })
+  @ApiOkResponse({ type: RefreshJwt.Response })
   @ApiException(() => UnauthorizedException, {
     description: 'token expired or invalid',
   })

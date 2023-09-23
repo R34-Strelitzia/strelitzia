@@ -22,7 +22,7 @@ export namespace RefreshJwt {
    * statusCode: 200 - OK
    */
   export class Response implements IAuthResponse {
-    @ApiProperty({ type: () => UserEntity })
+    @ApiProperty({ type: UserEntity })
     user: UserEntity;
 
     @ApiProperty()

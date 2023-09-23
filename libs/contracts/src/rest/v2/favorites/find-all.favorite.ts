@@ -1,8 +1,10 @@
 import { Type } from 'class-transformer';
 import { IsNotEmptyObject, ValidateNested } from 'class-validator';
 
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Favorite } from './favorite';
 import type { APIError } from '../error';
-import type { Favorite } from './favorite';
 import { Pagination } from '../pagination';
 /**
  * GET /favorites/
@@ -11,7 +13,7 @@ import { Pagination } from '../pagination';
  *
  * Success: 200 - Favorite Entity List in Response Body
  *
- * Error: 403 - Forbidden, 404 - Not Found
+ * Error: 400 - Bad Request, 403 - Forbidden, 404 - Not Found
  */
 export namespace FindAllFavorite {
   export const path = '/favorites/';
@@ -20,6 +22,7 @@ export namespace FindAllFavorite {
    * Required Bearer Auth
    */
   export class Request {
+    @ApiProperty()
     @IsNotEmptyObject()
     @ValidateNested()
     @Type(() => Pagination)
@@ -30,6 +33,7 @@ export namespace FindAllFavorite {
    * statusCode: 200 - OK
    */
   export class Response {
+    @ApiProperty({ type: [Favorite] })
     favorites: Favorite[];
   }
 
