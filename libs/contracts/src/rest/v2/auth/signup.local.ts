@@ -9,7 +9,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { UserEntity } from '../users';
 import type { APIError } from '../error';
 import { ApiSchema } from '../decorators';
-import { AuthResponse } from './interfaces';
+import { AuthResponse } from './auth-response';
 
 /**
  * POST /auth/signup/

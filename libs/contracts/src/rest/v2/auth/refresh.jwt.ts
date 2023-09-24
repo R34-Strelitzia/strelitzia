@@ -1,6 +1,6 @@
 import { ApiSchema } from '../decorators';
 import type { APIError } from '../error';
-import { AuthResponse } from './interfaces';
+import { AuthResponse } from './auth-response';
 
 /**
  * POST /auth/refresh/
