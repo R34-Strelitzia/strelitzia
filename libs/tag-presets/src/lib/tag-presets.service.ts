@@ -5,7 +5,7 @@ import {
   DeletePreset,
   FindAllPresets,
   FindOnePresets,
-  PresetWithID,
+  TagPresetEntity,
   Rating,
   UpdatePreset,
 } from '@strelitzia/contracts/v2';
@@ -19,11 +19,11 @@ export class TagPresetsService {
     minimalScore: true,
     rating: true,
     title: true,
-  } satisfies Record<keyof PresetWithID, true>;
+  } satisfies Record<keyof TagPresetEntity, true>;
 
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(
+  public async create(
     userId: string,
     createPresetDTO: CreatePreset.Request,
   ): Promise<CreatePreset.Response> {
@@ -37,7 +37,7 @@ export class TagPresetsService {
     return { preset };
   }
 
-  async findAll(
+  public async findAll(
     userId: string,
     findAllPresetsDTO: FindAllPresets.Request,
   ): Promise<FindAllPresets.Response> {
@@ -53,7 +53,10 @@ export class TagPresetsService {
     return { presets };
   }
 
-  async findOne(userId: string, id: string): Promise<FindOnePresets.Response> {
+  public async findOne(
+    userId: string,
+    id: string,
+  ): Promise<FindOnePresets.Response> {
     const preset = await this.prismaService.tagPreset.findUnique({
       where: { id_userId: { id, userId } },
       select: this.select,
@@ -66,12 +69,13 @@ export class TagPresetsService {
     return { preset };
   }
 
-  async update(
+  public async update(
     userId: string,
+    id: string,
     updatePresetDTO: UpdatePreset.Request,
   ): Promise<UpdatePreset.Response> {
     const preset = await this.prismaService.tagPreset.update({
-      where: { id_userId: { id: updatePresetDTO.preset.id, userId } },
+      where: { id_userId: { id, userId } },
       data: { ...updatePresetDTO.preset },
       select: this.select,
     });
@@ -79,7 +83,10 @@ export class TagPresetsService {
     return { preset };
   }
 
-  async delete(userId: string, id: string): Promise<DeletePreset.Response> {
+  public async delete(
+    userId: string,
+    id: string,
+  ): Promise<DeletePreset.Response> {
     await this.prismaService.tagPreset.delete({
       where: { id_userId: { id, userId } },
     });

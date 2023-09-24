@@ -7,7 +7,7 @@ import type { APIError } from '../error';
  *
  * Success: 204 - Empty Response Body
  *
- * Error: 403 - Forbidden, 404 - Not Found
+ * Error: 400 - Validation Error, 401 - Unauthorized, 404 - Not Found
  */
 export namespace DeletePreset {
   /**
@@ -28,8 +28,12 @@ export namespace DeletePreset {
 
   /**
    * statusCode:
-   * 403 - forbidden, need auth
+   *
+   * 400 - validation error
+   *
+   * 401 - Unauthorized, need auth
+   *
    * 404 - preset not found
    */
-  export type ResponseError = APIError<403 | 404>;
+  export type ResponseError = APIError<400 | 401 | 404>;
 }

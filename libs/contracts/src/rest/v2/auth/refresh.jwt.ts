@@ -1,5 +1,6 @@
+import { ApiSchema } from '../decorators';
 import type { APIError } from '../error';
-import { IAuthResponse } from './auth.response';
+import { AuthResponse } from './auth-response';
 
 /**
  * POST /auth/refresh/
@@ -13,12 +14,13 @@ import { IAuthResponse } from './auth.response';
 export namespace RefreshJwt {
   export const path = '/auth/refresh/';
 
-  export interface Request {}
+  export class Request {}
 
   /**
    * statusCode: 200 - OK
    */
-  export interface Response extends IAuthResponse {}
+  @ApiSchema({ name: 'RefreshJwtResponse' })
+  export class Response extends AuthResponse {}
 
   /**
    * statusCode:

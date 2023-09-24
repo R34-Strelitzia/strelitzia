@@ -1,13 +1,13 @@
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import {
   LoginLocal,
   RefreshJwt,
   SignUpLocal,
-  IUser as UserViewModel,
+  UserEntity,
 } from '@strelitzia/contracts/v2';
 import { UsersService } from '@strelitzia/users';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { authenticationConfig } from './config';
 import { PasswordService } from './password.service';
@@ -75,7 +75,7 @@ export class AuthService {
     const user = {
       email,
       username,
-    } satisfies UserViewModel;
+    } satisfies UserEntity;
 
     return { user, accessToken, refreshToken };
   }
