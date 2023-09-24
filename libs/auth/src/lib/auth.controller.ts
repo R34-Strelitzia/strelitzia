@@ -21,7 +21,7 @@ import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator
 import { UserId } from './decorators';
 import { AuthService } from './auth.service';
 import { JwtRefreshAuthGuard } from './guards';
-import { API_TAGS } from '@strelitzia/backend/swagger';
+import { API_AUTH, API_TAGS } from '@strelitzia/backend/swagger';
 import { LoginLocal, RefreshJwt, SignUpLocal } from '@strelitzia/contracts/v2';
 
 @ApiTags(API_TAGS.AUTH)
@@ -52,7 +52,7 @@ export class AuthController {
     return this.authService.login(loginDTO);
   }
 
-  @ApiBearerAuth()
+  @ApiBearerAuth(API_AUTH.JWT_REFRESH)
   @ApiOkResponse({ type: RefreshJwt.Response })
   @ApiException(() => UnauthorizedException, {
     description: 'token expired or invalid',

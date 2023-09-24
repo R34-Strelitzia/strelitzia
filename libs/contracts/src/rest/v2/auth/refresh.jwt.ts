@@ -1,8 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
-
-import { UserEntity } from '../users';
+import { ApiSchema } from '../decorators';
 import type { APIError } from '../error';
-import { IAuthResponse } from './interfaces';
+import { AuthResponse } from './interfaces';
 
 /**
  * POST /auth/refresh/
@@ -21,16 +19,8 @@ export namespace RefreshJwt {
   /**
    * statusCode: 200 - OK
    */
-  export class Response implements IAuthResponse {
-    @ApiProperty({ type: UserEntity })
-    user: UserEntity;
-
-    @ApiProperty()
-    accessToken: string;
-
-    @ApiProperty()
-    refreshToken: string;
-  }
+  @ApiSchema({ name: 'RefreshJwtResponse' })
+  export class Response extends AuthResponse {}
 
   /**
    * statusCode:

@@ -1,12 +1,16 @@
-import { IsNumber, Max, Min } from 'class-validator';
+import { IsInt, Max, Min } from 'class-validator';
+
+import { ApiProperty } from '@nestjs/swagger';
 
 export class Pagination {
-  @IsNumber()
+  @ApiProperty()
+  @IsInt()
   @Min(1)
   @Max(100)
   size: number;
 
-  @IsNumber()
+  @ApiProperty()
+  @IsInt()
   @Min(0)
   page: number;
 }

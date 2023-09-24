@@ -1,5 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
 import type { APIError } from '../error';
-import type { PresetWithID } from './preset';
+import { TagPresetEntity } from './preset';
+import { ApiSchema } from '../decorators';
 
 /**
  * GET /presets/:id
@@ -8,7 +10,7 @@ import type { PresetWithID } from './preset';
  *
  * Success: 200 - Preset Entity in Response Body
  *
- * Error: 403 - Forbidden, 404 - Not Found
+ * Error: 400 - Validation Error, 401 - Unauthorized, 404 - Not Found
  */
 export namespace FindOnePresets {
   /**
@@ -24,14 +26,20 @@ export namespace FindOnePresets {
   /**
    * statusCode: 200 - OK
    */
+  @ApiSchema({ name: 'FindOnePresetsResponse' })
   export class Response {
-    preset: Required<PresetWithID>;
+    @ApiProperty({ type: TagPresetEntity })
+    preset: TagPresetEntity;
   }
 
   /**
    * statusCode:
-   * 403 - Forbidden, need auth
+   *
+   * 400 - Validation Error
+   *
+   * 401 - Unauthorized, need auth
+   *
    * 404 - Preset Not Found
    */
-  export type ResponseError = APIError<403 | 404>;
+  export type ResponseError = APIError<400 | 401 | 404>;
 }

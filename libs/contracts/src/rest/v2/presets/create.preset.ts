@@ -1,8 +1,11 @@
 import { Type } from 'class-transformer';
 import { IsNotEmptyObject, ValidateNested } from 'class-validator';
 
+import { ApiProperty } from '@nestjs/swagger';
+
 import type { APIError } from '../error';
-import { Preset, PresetWithID } from './preset';
+import { ApiSchema } from '../decorators';
+import { TagPresetWithoutId, TagPresetEntity } from './preset';
 
 /**
  * POST /presets/
@@ -11,7 +14,7 @@ import { Preset, PresetWithID } from './preset';
  *
  * Success: 201 - Preset Entity in Response Body
  *
- * Error: 400 - Bad Request, 403 - Forbidden, 409 - Conflict
+ * Error: 400 - Bad Request, 401 - Unauthorized, 409 - Conflict
  */
 export namespace CreatePreset {
   export const path = '/presets/';
@@ -19,18 +22,22 @@ export namespace CreatePreset {
   /**
    * Required Bearer Auth
    */
+  @ApiSchema({ name: 'CreatePresetRequest' })
   export class Request {
+    @ApiProperty()
     @IsNotEmptyObject()
     @ValidateNested()
-    @Type(() => Preset)
-    preset: Preset;
+    @Type(() => TagPresetWithoutId)
+    preset: TagPresetWithoutId;
   }
 
   /**
    * statusCode: 201 - Created
    */
+  @ApiSchema({ name: 'CreatePresetResponse' })
   export class Response {
-    preset: Required<PresetWithID>;
+    @ApiProperty({ type: TagPresetEntity })
+    preset: TagPresetEntity;
   }
 
   /**
@@ -38,9 +45,9 @@ export namespace CreatePreset {
    *
    * 400 - Validation Error
    *
-   * 403 - Forbidden, need auth
+   * 401 - Unauthorized, need auth
    *
    * 409 - Conflict
    */
-  export type ResponseError = APIError<400 | 403 | 409>;
+  export type ResponseError = APIError<400 | 401 | 409>;
 }

@@ -8,7 +8,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { UserEntity } from '../users';
 import type { APIError } from '../error';
-import type { IAuthResponse } from './interfaces';
+import { ApiSchema } from '../decorators';
+import { AuthResponse } from './interfaces';
 
 /**
  * POST /auth/signup/
@@ -20,6 +21,7 @@ import type { IAuthResponse } from './interfaces';
 export namespace SignUpLocal {
   export const path = '/auth/signup/';
 
+  @ApiSchema({ name: 'SignUpLocalRequest' })
   export class Request {
     @ApiProperty()
     @IsNotEmptyObject()
@@ -40,16 +42,8 @@ export namespace SignUpLocal {
   /**
    * statusCode: 201 - Created
    */
-  export class Response implements IAuthResponse {
-    @ApiProperty({ type: UserEntity })
-    user: UserEntity;
-
-    @ApiProperty()
-    accessToken: string;
-
-    @ApiProperty()
-    refreshToken: string;
-  }
+  @ApiSchema({ name: 'SignUpLocalResponse' })
+  export class Response extends AuthResponse {}
 
   /**
    * statusCode:

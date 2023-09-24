@@ -6,6 +6,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Favorite } from './favorite';
 import type { APIError } from '../error';
 import { Pagination } from '../pagination';
+import { ApiSchema } from '../decorators';
 /**
  * GET /favorites/
  *
@@ -13,7 +14,7 @@ import { Pagination } from '../pagination';
  *
  * Success: 200 - Favorite Entity List in Response Body
  *
- * Error: 400 - Bad Request, 403 - Forbidden, 404 - Not Found
+ * Error: 400 - Bad Request, 401 - Unauthorized, 404 - Not Found
  */
 export namespace FindAllFavorite {
   export const path = '/favorites/';
@@ -21,6 +22,7 @@ export namespace FindAllFavorite {
   /**
    * Required Bearer Auth
    */
+  @ApiSchema({ name: 'FindAllFavoritesRequest' })
   export class Request {
     @ApiProperty()
     @IsNotEmptyObject()
@@ -32,6 +34,7 @@ export namespace FindAllFavorite {
   /**
    * statusCode: 200 - OK
    */
+  @ApiSchema({ name: 'FindAllFavoritesResponse' })
   export class Response {
     @ApiProperty({ type: [Favorite] })
     favorites: Favorite[];
@@ -40,7 +43,10 @@ export namespace FindAllFavorite {
   /**
    * statusCode:
    * 400 - validation error
+   *
+   * 401 - unauthorized
+   *
    * 404 - post not in favorites
    */
-  export type ResponseError = APIError<400 | 404>;
+  export type ResponseError = APIError<400 | 401 | 404>;
 }

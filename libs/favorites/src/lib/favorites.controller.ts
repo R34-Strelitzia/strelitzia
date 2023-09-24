@@ -4,7 +4,6 @@ import {
   ConflictException,
   Controller,
   Delete,
-  ForbiddenException,
   Get,
   HttpCode,
   HttpStatus,
@@ -12,6 +11,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -19,24 +19,32 @@ import {
   FindAllFavorite,
   RemoveFavorite,
 } from '@strelitzia/contracts/v2';
-import { JwtAuthGuard, UserId } from '@strelitzia/auth';
-
-import { FavoritesService } from './favorites.service';
-import { ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
 
+import { FavoritesService } from './favorites.service';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { API_AUTH, API_TAGS } from '@strelitzia/backend/swagger';
+import { JwtAuthGuard, UserId } from '@strelitzia/auth';
+
+@ApiTags(API_TAGS.FAVORITES)
+@ApiBearerAuth(API_AUTH.JWT_ACCESS)
+@UseGuards(JwtAuthGuard)
 @Controller({ version: '2' })
 export class FavoritesController {
   constructor(private favoritesService: FavoritesService) {}
 
   @ApiResponse({ status: HttpStatus.CREATED, type: AddFavorite.Response })
   @ApiException(() => BadRequestException, { description: 'Validation error' })
-  @ApiException(() => ForbiddenException, { description: 'Resource Forbidden' })
+  @ApiException(() => UnauthorizedException, { description: 'Unauthorized' })
   @ApiException(() => ConflictException, {
     description: 'Already in favorites',
   })
   @Post(AddFavorite.path + ':id')
-  @UseGuards(JwtAuthGuard)
   add(
     @UserId() userId: string,
     @Param('id', ParseIntPipe) postId: number,
@@ -46,12 +54,11 @@ export class FavoritesController {
 
   @ApiOkResponse({ type: FindAllFavorite.Response })
   @ApiException(() => BadRequestException, { description: 'Validation error' })
-  @ApiException(() => ForbiddenException, { description: 'Resource Forbidden' })
+  @ApiException(() => UnauthorizedException, { description: 'Unauthorized' })
   @ApiException(() => NotFoundException, {
     description: 'Favorites not found',
   })
   @Get(FindAllFavorite.path)
-  @UseGuards(JwtAuthGuard)
   findAll(
     @UserId() userId: string,
     @Body() findAllFavoritesDTO: FindAllFavorite.Request,
@@ -61,7 +68,7 @@ export class FavoritesController {
 
   @ApiResponse({ status: HttpStatus.NO_CONTENT })
   @ApiException(() => BadRequestException, { description: 'Validation error' })
-  @ApiException(() => ForbiddenException, { description: 'Resource Forbidden' })
+  @ApiException(() => UnauthorizedException, { description: 'Unauthorized' })
   @ApiException(() => NotFoundException, { description: 'Favorites not found' })
   @Delete(RemoveFavorite.path + ':id')
   @UseGuards(JwtAuthGuard)

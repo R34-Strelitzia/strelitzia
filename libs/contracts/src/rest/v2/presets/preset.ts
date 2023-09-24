@@ -1,38 +1,43 @@
 import {
   IsArray,
   IsEnum,
-  IsNumber,
-  IsOptional,
+  IsInt,
   IsString,
   IsUUID,
   Length,
 } from 'class-validator';
 
+import { ApiProperty, OmitType } from '@nestjs/swagger';
+
 import { Rating, RatingTitle } from './rating';
 
-export class Preset {
+export class TagPresetEntity {
+  @ApiProperty()
+  @IsUUID()
+  id: string;
+
+  @ApiProperty()
   @IsString()
   @Length(3, 30)
   title: string;
 
+  @ApiProperty()
   @IsArray()
   @IsString({ each: true })
   allowed: string[];
 
+  @ApiProperty()
   @IsArray()
   @IsString({ each: true })
   banned: string[];
 
-  @IsOptional()
-  @IsNumber()
-  minimalScore?: number;
+  @ApiProperty()
+  @IsInt()
+  minimalScore: number;
 
-  @IsOptional()
+  @ApiProperty({ enum: Rating })
   @IsEnum(Rating)
-  rating?: RatingTitle;
+  rating: RatingTitle;
 }
 
-export class PresetWithID extends Preset {
-  @IsUUID()
-  id: string;
-}
+export class TagPresetWithoutId extends OmitType(TagPresetEntity, ['id']) {}

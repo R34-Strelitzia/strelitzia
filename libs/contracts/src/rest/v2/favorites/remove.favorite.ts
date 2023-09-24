@@ -1,3 +1,4 @@
+import { ApiSchema } from '../decorators';
 import type { APIError } from '../error';
 
 /**
@@ -7,7 +8,7 @@ import type { APIError } from '../error';
  *
  * Success: 204 - Empty Response Body
  *
- * Error: 400 - Validation Error, 403 - Forbidden, 404 - Not Found
+ * Error: 400 - Validation Error, 401 - Unauthorized, 404 - Not Found
  */
 export namespace RemoveFavorite {
   /**
@@ -18,6 +19,7 @@ export namespace RemoveFavorite {
   /**
    * Required Bearer Auth
    */
+  @ApiSchema({ name: 'RemoveFavoriteRequest' })
   export class Request {}
 
   /**
@@ -27,8 +29,12 @@ export namespace RemoveFavorite {
 
   /**
    * statusCode:
+   *
    * 400 - validation error
+   *
+   * 401 - unauthorized
+   *
    * 404 - post not in favorites
    */
-  export type ResponseError = APIError<400 | 404>;
+  export type ResponseError = APIError<400 | 401 | 404>;
 }
