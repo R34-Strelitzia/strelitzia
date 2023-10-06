@@ -11,25 +11,27 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import {
-  AddFavorite,
-  FindAllFavorite,
-  RemoveFavorite,
-} from '@strelitzia/contracts/v2';
-import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
-
-import { FavoritesService } from './favorites.service';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { API_AUTH, API_TAGS } from '@strelitzia/backend/swagger';
+import { ApiException } from '@nanogiants/nestjs-swagger-api-exception-decorator';
+
+import {
+  AddFavorite,
+  FindAllFavorite,
+  RemoveFavorite,
+} from '@strelitzia/contracts/v2';
 import { JwtAuthGuard, UserId } from '@strelitzia/auth';
+import { API_AUTH, API_TAGS } from '@strelitzia/backend/swagger';
+
+import { FavoritesService } from './favorites.service';
 
 @ApiTags(API_TAGS.FAVORITES)
 @ApiBearerAuth(API_AUTH.JWT_ACCESS)
@@ -44,24 +46,21 @@ export class FavoritesController {
   @ApiException(() => ConflictException, {
     description: 'Already in favorites',
   })
-  @Post(AddFavorite.path + ':id')
+  @Post(AddFavorite.path)
   add(
     @UserId() userId: string,
-    @Param('id', ParseIntPipe) postId: number,
+    @Body() addFavoriteDto: AddFavorite.Request,
   ): Promise<AddFavorite.Response> {
-    return this.favoritesService.add(userId, postId);
+    return this.favoritesService.add(userId, addFavoriteDto.favorite.postId);
   }
 
   @ApiOkResponse({ type: FindAllFavorite.Response })
   @ApiException(() => BadRequestException, { description: 'Validation error' })
   @ApiException(() => UnauthorizedException, { description: 'Unauthorized' })
-  @ApiException(() => NotFoundException, {
-    description: 'Favorites not found',
-  })
   @Get(FindAllFavorite.path)
   findAll(
     @UserId() userId: string,
-    @Body() findAllFavoritesDTO: FindAllFavorite.Request,
+    @Query() findAllFavoritesDTO: FindAllFavorite.Request,
   ): Promise<FindAllFavorite.Response> {
     return this.favoritesService.findAll(userId, findAllFavoritesDTO);
   }

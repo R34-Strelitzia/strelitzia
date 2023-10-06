@@ -12,6 +12,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -56,11 +57,10 @@ export class TagPresetsController {
   @ApiOkResponse({ type: FindAllPresets.Response })
   @ApiException(() => BadRequestException, { description: 'Validation error' })
   @ApiException(() => UnauthorizedException, { description: 'Unauthorized' })
-  @ApiException(() => NotFoundException, { description: 'Not found' })
   @Get(FindAllPresets.path)
   findAll(
     @UserId() userId: string,
-    @Body() findAllPresetsDTO: FindAllPresets.Request,
+    @Query() findAllPresetsDTO: FindAllPresets.Request,
   ): Promise<FindAllPresets.Response> {
     return this.tagPresetsService.findAll(userId, findAllPresetsDTO);
   }

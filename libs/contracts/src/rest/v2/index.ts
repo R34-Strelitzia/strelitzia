@@ -3,3 +3,4 @@ export * from './error';
 export * from './favorites';
 export * from './users';
 export * from './presets';
+export * from './pagination';
