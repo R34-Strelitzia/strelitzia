@@ -1,3 +1,6 @@
+import { Type } from 'class-transformer';
+import { IsNotEmptyObject, ValidateNested } from 'class-validator';
+
 import { ApiProperty } from '@nestjs/swagger';
 
 import { Favorite } from './favorite';
@@ -14,15 +17,18 @@ import { ApiSchema } from '../decorators';
  * Error: 400 - Bad Request, 401 - Unauthorized, 409 - Conflict
  */
 export namespace AddFavorite {
-  /**
-   * Required preset **id** param, like **"/favorites/:id"**
-   */
   export const path = '/favorites/';
 
   /**
    * Required Bearer Auth
    */
-  export class Request {}
+  export class Request {
+    @ApiProperty({ type: Favorite })
+    @IsNotEmptyObject()
+    @ValidateNested()
+    @Type(() => Favorite)
+    favorite: Favorite;
+  }
 
   /**
    * statusCode: 201 - Created

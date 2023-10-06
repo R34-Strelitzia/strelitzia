@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   ConflictException,
   Controller,
   Delete,
@@ -45,12 +46,12 @@ export class FavoritesController {
   @ApiException(() => ConflictException, {
     description: 'Already in favorites',
   })
-  @Post(AddFavorite.path + ':id')
+  @Post(AddFavorite.path)
   add(
     @UserId() userId: string,
-    @Param('id', ParseIntPipe) postId: number,
+    @Body() addFavoriteDto: AddFavorite.Request,
   ): Promise<AddFavorite.Response> {
-    return this.favoritesService.add(userId, postId);
+    return this.favoritesService.add(userId, addFavoriteDto.favorite.postId);
   }
 
   @ApiOkResponse({ type: FindAllFavorite.Response })
