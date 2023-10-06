@@ -6,7 +6,6 @@ import {
   FindAllPresets,
   FindOnePresets,
   TagPresetEntity,
-  Rating,
   UpdatePreset,
 } from '@strelitzia/contracts/v2';
 
@@ -27,10 +26,8 @@ export class TagPresetsService {
     userId: string,
     createPresetDTO: CreatePreset.Request,
   ): Promise<CreatePreset.Response> {
-    const { title, allowed, banned } = createPresetDTO.preset;
-
     const preset = await this.prismaService.tagPreset.create({
-      data: { userId, title, allowed, banned, rating: Rating.ANY },
+      data: { userId, ...createPresetDTO.preset },
       select: this.select,
     });
 
@@ -41,16 +38,31 @@ export class TagPresetsService {
     userId: string,
     findAllPresetsDTO: FindAllPresets.Request,
   ): Promise<FindAllPresets.Response> {
-    const presets = await this.prismaService.tagPreset.findMany({
+    const totalQuery = this.prismaService.tagPreset.count({
       where: { userId },
-      take: findAllPresetsDTO.pagination.size,
-      skip:
-        findAllPresetsDTO.pagination.size * findAllPresetsDTO.pagination.page,
+    });
+
+    const skip = findAllPresetsDTO.size * (findAllPresetsDTO.page - 1);
+
+    const presetsQuery = this.prismaService.tagPreset.findMany({
+      where: { userId },
+      take: findAllPresetsDTO.size,
+      skip,
       orderBy: { updatedAt: 'desc' },
       select: this.select,
     });
 
-    return { presets };
+    const [total, content] = await this.prismaService.$transaction([
+      totalQuery,
+      presetsQuery,
+    ]);
+
+    return {
+      total,
+      page: findAllPresetsDTO.page,
+      size: findAllPresetsDTO.size,
+      content,
+    };
   }
 
   public async findOne(

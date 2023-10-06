@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@strelitzia/prisma';
 import {
   AddFavorite,
@@ -23,21 +23,31 @@ export class FavoritesService {
     userId: string,
     findAllFavoritesDTO: FindAllFavorite.Request,
   ): Promise<FindAllFavorite.Response> {
-    const favorites = await this.prismaService.favorite.findMany({
+    const totalQuery = this.prismaService.favorite.count({
+      where: { userId },
+    });
+
+    const skip = findAllFavoritesDTO.size * (findAllFavoritesDTO.page - 1);
+
+    const favoritesQuery = this.prismaService.favorite.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
-      take: findAllFavoritesDTO.pagination.size,
-      skip:
-        findAllFavoritesDTO.pagination.size *
-        findAllFavoritesDTO.pagination.page,
+      take: findAllFavoritesDTO.size,
+      skip,
       select: { postId: true },
     });
 
-    if (favorites.length === 0) {
-      throw new NotFoundException();
-    }
+    const [total, content] = await this.prismaService.$transaction([
+      totalQuery,
+      favoritesQuery,
+    ]);
 
-    return { favorites };
+    return {
+      total,
+      page: findAllFavoritesDTO.page,
+      size: findAllFavoritesDTO.size,
+      content,
+    };
   }
 
   async remove(
