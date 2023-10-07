@@ -28,7 +28,7 @@ import {
   FindAllFavorite,
   RemoveFavorite,
 } from '@strelitzia/contracts/v2';
-import { JwtAuthGuard, UserId } from '@strelitzia/auth';
+import { JwtAuthGuard, UserId } from '@strelitzia/backend/auth';
 import { API_AUTH, API_TAGS } from '@strelitzia/backend/swagger';
 
 import { FavoritesService } from './favorites.service';

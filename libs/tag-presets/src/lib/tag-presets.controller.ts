@@ -16,7 +16,7 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard, UserId } from '@strelitzia/auth';
+import { JwtAuthGuard, UserId } from '@strelitzia/backend/auth';
 import {
   CreatePreset,
   DeletePreset,

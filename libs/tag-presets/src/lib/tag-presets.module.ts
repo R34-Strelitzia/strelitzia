@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from '@strelitzia/auth';
+import { AuthModule } from '@strelitzia/backend/auth';
 import { PrismaModule } from '@strelitzia/prisma';
 
 import { TagPresetsService } from './tag-presets.service';
