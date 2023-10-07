@@ -1,0 +1,41 @@
+{
+  "name": "prisma",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/prisma/src",
+  "projectType": "library",
+  "targets": {
+    "studio": {
+      "command": "prisma studio --schema=schema/schema.prisma",
+      "options": { "cwd": "libs/backend/prisma" }
+    },
+    "generate": {
+      "command": "prisma generate --schema=schema/schema.prisma",
+      "options": { "cwd": "libs/backend/prisma" }
+    },
+    "push": {
+      "command": "prisma db push --schema=schema/schema.prisma",
+      "options": { "cwd": "libs/backend/prisma" }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "configurations": {
+        "deploy": {
+          "command": "prisma migrate deploy --schema=schema/schema.prisma",
+          "cwd": "libs/backend/prisma"
+        },
+        "create": {
+          "command": "prisma migrate dev --create-only --schema=schema/schema.prisma",
+          "cwd": "libs/backend/prisma"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/prisma/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scoped:backend"]
+}
