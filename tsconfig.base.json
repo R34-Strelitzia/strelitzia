@@ -11,10 +11,10 @@
     "moduleResolution": "node",
     "paths": {
       "@strelitzia/backend/auth": ["libs/backend/auth/src/index.ts"],
+      "@strelitzia/backend/favorites": ["libs/backend/favorites/src/index.ts"],
+      "@strelitzia/backend/prisma": ["libs/backend/prisma/src/index.ts"],
       "@strelitzia/backend/swagger": ["libs/backend/swagger/src/index.ts"],
       "@strelitzia/contracts/v2": ["libs/contracts/src/v2.ts"],
-      "@strelitzia/favorites": ["libs/favorites/src/index.ts"],
-      "@strelitzia/backend/prisma": ["libs/backend/prisma/src/index.ts"],
       "@strelitzia/tag-presets": ["libs/tag-presets/src/index.ts"],
       "@strelitzia/users": ["libs/users/src/index.ts"]
     },
