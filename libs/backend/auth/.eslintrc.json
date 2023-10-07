@@ -1,11 +1,11 @@
 {
   "extends": [
-    "../../.eslintrc.json",
+    "../../../.eslintrc.json",
     "plugin:@darraghor/nestjs-typed/recommended"
   ],
   "plugins": ["@darraghor/nestjs-typed"],
   "parserOptions": {
-    "project": ["libs/auth/tsconfig.*?.json"]
+    "project": ["libs/backend/auth/tsconfig.*?.json"]
   },
   "rules": {
     "@darraghor/nestjs-typed/injectable-should-be-provided": "off"

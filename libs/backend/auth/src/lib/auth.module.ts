@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from '@strelitzia/users';
-import { PrismaModule } from '@strelitzia/prisma';
+import { PrismaModule } from '@strelitzia/backend/prisma';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 
 import { AuthService } from './auth.service';

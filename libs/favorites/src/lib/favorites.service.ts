@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@strelitzia/prisma';
+
 import {
   AddFavorite,
   FindAllFavorite,
   RemoveFavorite,
 } from '@strelitzia/contracts/v2';
+import { PrismaService } from '@strelitzia/backend/prisma';
 
 @Injectable()
 export class FavoritesService {

@@ -1,10 +1,12 @@
 import helmet from 'helmet';
+
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { PrismaFilter } from '@strelitzia/prisma';
+
+import { PrismaFilter } from '@strelitzia/backend/prisma';
+import { setupSwagger } from '@strelitzia/backend/swagger';
 
 import { AppModule } from './app/app.module';
-import { setupSwagger } from '@strelitzia/backend/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

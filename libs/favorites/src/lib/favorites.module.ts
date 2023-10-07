@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
+
 import { AuthModule } from '@strelitzia/backend/auth';
-import { PrismaModule } from '@strelitzia/prisma';
+import { PrismaModule } from '@strelitzia/backend/prisma';
 
 import { FavoritesController } from './favorites.controller';
 import { FavoritesService } from './favorites.service';

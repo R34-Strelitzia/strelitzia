@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '@strelitzia/prisma';
+
 import {
   CreatePreset,
   DeletePreset,
@@ -8,6 +8,7 @@ import {
   TagPresetEntity,
   UpdatePreset,
 } from '@strelitzia/contracts/v2';
+import { PrismaService } from '@strelitzia/backend/prisma';
 
 @Injectable()
 export class TagPresetsService {
