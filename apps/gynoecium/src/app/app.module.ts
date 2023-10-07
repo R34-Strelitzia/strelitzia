@@ -5,7 +5,7 @@ import { AuthModule } from '@strelitzia/backend/auth';
 import { UsersModule } from '@strelitzia/backend/users';
 import { PrismaModule } from '@strelitzia/backend/prisma';
 import { FavoritesModule } from '@strelitzia/backend/favorites';
-import { TagPresetsModule } from '@strelitzia/tag-presets';
+import { TagPresetsModule } from '@strelitzia/backend/tag-presets';
 
 @Module({
   imports: [
