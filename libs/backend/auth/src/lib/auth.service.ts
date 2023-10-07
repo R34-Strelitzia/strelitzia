@@ -1,12 +1,13 @@
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
+
 import {
   LoginLocal,
   RefreshJwt,
   SignUpLocal,
   UserEntity,
 } from '@strelitzia/contracts/v2';
-import { UsersService } from '@strelitzia/users';
+import { UsersService } from '@strelitzia/backend/users';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { authenticationConfig } from './config';

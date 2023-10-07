@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+
 import { AuthModule } from '@strelitzia/backend/auth';
-import { UsersModule } from '@strelitzia/users';
+import { UsersModule } from '@strelitzia/backend/users';
 import { PrismaModule } from '@strelitzia/backend/prisma';
 import { FavoritesModule } from '@strelitzia/backend/favorites';
 import { TagPresetsModule } from '@strelitzia/tag-presets';

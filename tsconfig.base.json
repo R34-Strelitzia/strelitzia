@@ -14,9 +14,9 @@
       "@strelitzia/backend/favorites": ["libs/backend/favorites/src/index.ts"],
       "@strelitzia/backend/prisma": ["libs/backend/prisma/src/index.ts"],
       "@strelitzia/backend/swagger": ["libs/backend/swagger/src/index.ts"],
+      "@strelitzia/backend/users": ["libs/backend/users/src/index.ts"],
       "@strelitzia/contracts/v2": ["libs/contracts/src/v2.ts"],
-      "@strelitzia/tag-presets": ["libs/tag-presets/src/index.ts"],
-      "@strelitzia/users": ["libs/users/src/index.ts"]
+      "@strelitzia/tag-presets": ["libs/tag-presets/src/index.ts"]
     },
     "rootDir": ".",
     "skipDefaultLibCheck": true,
