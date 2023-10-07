@@ -17,8 +17,17 @@
       "options": { "cwd": "libs/prisma" }
     },
     "migrate": {
-      "command": "prisma migrate dev --schema=schema/schema.prisma",
-      "options": { "cwd": "libs/prisma" }
+      "executor": "nx:run-commands",
+      "configurations": {
+        "deploy": {
+          "command": "prisma migrate deploy --schema=schema/schema.prisma",
+          "cwd": "libs/prisma"
+        },
+        "create": {
+          "command": "prisma migrate dev --create-only --schema=schema/schema.prisma",
+          "cwd": "libs/prisma"
+        }
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
