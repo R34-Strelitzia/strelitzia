@@ -5,8 +5,12 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm ci
-      - run: npx nx run-many --target=lint --all=true
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm lint
