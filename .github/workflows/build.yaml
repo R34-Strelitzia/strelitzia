@@ -13,5 +13,4 @@ jobs:
           node-version: 18
           cache: pnpm
       - run: pnpm install
-      - run: npx nx run prisma:generate
-      - run: npx nx run-many --target=build --all=true
+      - run: pnpm build
