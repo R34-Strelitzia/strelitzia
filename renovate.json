@@ -1,5 +1,12 @@
 {
-  "extends": ["config:recommended", "monorepo:nrwl"],
+  "configMigration": true,
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests",
+    ":pinDevDependencies",
+    "monorepo:nrwl"
+  ],
   "branchPrefix": "renovate-",
   "baseBranches": ["main"],
   "assigneesFromCodeOwners": true,
