@@ -3,7 +3,7 @@ version: '3.9'
 services:
   db:
     container_name: postgres
-    image: postgres:16-alpine
+    image: postgres:16-alpine@sha256:bfd42bb6358aee8a305ec3f51d505d6b9e406cf3ce800914a66741dba18b8263
     restart: always
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
@@ -17,7 +17,7 @@ services:
 
   cache:
     container_name: redis
-    image: redis:7-alpine
+    image: redis:7-alpine@sha256:343e6546f35877801de0b8580274a5e3a8e8464cabe545a2dd9f3c78df77542a
     restart: always
     environment:
       - REDIS_PASSWORD=TEST
