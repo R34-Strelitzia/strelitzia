@@ -1,4 +1,15 @@
 {
+  "name": "strelitzia",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "docker:down": "docker compose -f \"docker-compose.dev.yml\" down",
+    "docker:up": "docker compose -f \"docker-compose.dev.yml\" up -d --build",
+    "docker:restart": "pnpm docker:down && pnpm docker:up",
+    "start:dev": "pnpm docker:restart && nx run-many --target=serve --all=true",
+    "lint": "pnpm exec nx run-many --target=lint --all=true"
+  },
+  "version": "0.0.0",
   "dependencies": {
     "@nanogiants/nestjs-swagger-api-exception-decorator": "^1.6.11",
     "@nestjs/common": "^10.0.2",
@@ -64,10 +75,5 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^4.0.2",
     "vitest": "^0.34.0"
-  },
-  "license": "MIT",
-  "name": "strelitzia",
-  "private": true,
-  "scripts": {},
-  "version": "0.0.0"
+  }
 }
