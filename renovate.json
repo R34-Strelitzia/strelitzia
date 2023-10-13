@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", "monorepo:nrwl"],
+  "extends": ["config:recommended", "monorepo:nrwl"],
   "branchPrefix": "renovate-",
   "baseBranches": ["main"],
   "assigneesFromCodeOwners": true,
