@@ -3,6 +3,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "prisma:generate": "nx run prisma:generate",
+    "build": "pnpm prisma:generate && nx run-many --target=build --all=true",
     "docker:down": "docker compose -f \"docker-compose.dev.yml\" down",
     "docker:up": "docker compose -f \"docker-compose.dev.yml\" up -d --build",
     "docker:restart": "pnpm docker:down && pnpm docker:up",
