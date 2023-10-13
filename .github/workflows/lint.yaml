@@ -13,4 +13,8 @@ jobs:
           node-version: 18
           cache: pnpm
       - run: pnpm install
-      - run: npx nx run-many --target=lint --all=true
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          prettier: true
