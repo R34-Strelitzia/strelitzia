@@ -7,6 +7,15 @@
     ":pinDevDependencies",
     "monorepo:nrwl"
   ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": ["FROM node:(?<currentValue>.*?)-alpine"],
+      "depNameTemplate": "node",
+      "datasourceTemplate": "node",
+      "versioningTemplate": "node"
+    }
+  ],
   "branchPrefix": "renovate-",
   "baseBranches": ["main"],
   "assigneesFromCodeOwners": true,
@@ -23,6 +32,11 @@
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["major"],
       "labels": ["dependencies", "breaking"]
+    },
+    {
+      "matchPackageNames": ["node"],
+      "matchManagers": ["dockerfile"],
+      "enabled": false
     }
   ]
 }
