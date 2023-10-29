@@ -29,7 +29,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5
         with:
-          images: ${{ env.REGISTRY }}/strelitzia-gynoecium
+          images: ${{ env.REGISTRY }}/strelitzia/gynoecium
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: gynoecium
+          path: /tmp/strelitzia
 
       - name: Build and push Docker image
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5
@@ -39,3 +45,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=docker,dest=/tmp/strelitzia/gynoecium.tar
