@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  GYNOECIUM_IMAGE: ${{ github.repository }}/gynoecium
+  GYNOECIUM_IMAGE: strelitzia/gynoecium
 
 jobs:
   push_gynoecium_to_registry:
