@@ -6,7 +6,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  GYNOECIUM_IMAGE: ${{ github.repository }}
 
 jobs:
   push_gynoecium_to_registry:
@@ -17,8 +16,9 @@ jobs:
       packages: write
     strategy:
       matrix:
-        context:
-          - gynoecium
+        include:
+          - dockerfile: ./apps/gynoecium/Dockerfile
+            image: ghcr.io/${{ github.repository_owner }}/gynoecium
     steps:
       - name: Check out the repo
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -37,15 +37,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.GYNOECIUM_IMAGE }}
-          flavor: |
-            suffix=${{ matrix.context }}
+          images: ${{ matrix.image }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5
         with:
           context: .
-          file: ./apps/gynoecium/Dockerfile
+          file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
