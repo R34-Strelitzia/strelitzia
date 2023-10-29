@@ -1,5 +1,5 @@
 # Stage 1 - Base Setup
-FROM node:20-alpine AS base
+FROM node:20-alpine@sha256:8e015de364a2eb2ed7c52a558e9f716dcb615560ffd132234087c10ccc1f2c63 AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -36,7 +36,7 @@ COPY --chown=node:node . .
 RUN pnpm exec nx run gynoecium:build --configuration=production
 
 # Stage 5 - Production Runnner
-FROM node:20-alpine AS production
+FROM node:20-alpine@sha256:8e015de364a2eb2ed7c52a558e9f716dcb615560ffd132234087c10ccc1f2c63 AS production
 
 ENV NODE_ENV production
 
