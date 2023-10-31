@@ -52,7 +52,7 @@
     "@nx/webpack": "17.0.2",
     "@nx/workspace": "17.0.2",
     "@types/bcrypt": "5.0.1",
-    "@types/jest": "29.5.6",
+    "@types/jest": "29.5.7",
     "@types/node": "20.8.9",
     "@types/passport-jwt": "3.0.12",
     "@types/uuid": "9.0.6",
