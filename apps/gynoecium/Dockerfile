@@ -43,6 +43,8 @@ FROM node:20-alpine@sha256:8e015de364a2eb2ed7c52a558e9f716dcb615560ffd132234087c
 
 ENV NODE_ENV production
 
+RUN apk add --no-cache tini
+
 WORKDIR /app
 
 COPY --chown=node:node --from=prod-dependencies /app/node_modules ./node_modules
@@ -50,4 +52,5 @@ COPY --chown=node:node --from=builder /app/dist/apps/gynoecium .
 
 USER node
 
+ENTRYPOINT ["/sbin/tini", "--"]
 CMD [ "node", "main.js" ]
