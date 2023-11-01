@@ -104,6 +104,6 @@ export class TagPresetsService {
       where: { id_userId: { id, userId } },
     });
 
-    return;
+    return {};
   }
 }

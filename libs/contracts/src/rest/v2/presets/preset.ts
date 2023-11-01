@@ -9,7 +9,7 @@ import {
 
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 
-import { Rating, RatingTitle } from './rating';
+import { Rating, type RatingTitle } from './rating';
 
 export class TagPresetEntity {
   @ApiProperty()
