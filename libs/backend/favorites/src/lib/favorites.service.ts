@@ -59,6 +59,6 @@ export class FavoritesService {
       where: { userId_postId: { userId, postId } },
     });
 
-    return;
+    return {};
   }
 }

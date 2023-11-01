@@ -1,4 +1,5 @@
-import bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
