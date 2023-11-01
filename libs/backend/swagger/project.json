@@ -5,18 +5,12 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/backend/swagger/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/backend/swagger/**/*.ts"]
       }
     }
   },
-  "tags": [
-    "scoped:backend"
-  ]
+  "tags": ["scoped:backend"]
 }
