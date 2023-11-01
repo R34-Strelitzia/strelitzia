@@ -14,12 +14,14 @@
         "main": "apps/gynoecium/src/main.ts",
         "tsConfig": "apps/gynoecium/tsconfig.app.json",
         "assets": ["apps/gynoecium/src/assets"],
+        "isolatedConfig": true,
         "webpackConfig": "apps/gynoecium/webpack.config.js"
       },
       "configurations": {
         "production": {
           "optimization": true,
           "extractLicenses": true,
+          "generatePackageJson": true,
           "inspect": false
         }
       }
