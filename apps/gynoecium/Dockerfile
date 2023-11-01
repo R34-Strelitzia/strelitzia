@@ -36,6 +36,8 @@ COPY --chown=node:node --from=builder /app/dist/apps/gynoecium/pnpm-lock.yaml .
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --production --frozen-lockfile
 
+COPY --chown=node:node --from=dependencies /app/node_modules/.prisma/client ./node_modules/@prisma/client
+
 # Stage 5 - Production Runnner
 FROM node:20-alpine@sha256:8e015de364a2eb2ed7c52a558e9f716dcb615560ffd132234087c10ccc1f2c63 AS production
 
