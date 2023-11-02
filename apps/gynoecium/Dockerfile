@@ -1,5 +1,5 @@
 # Stage 1 - Base Setup
-FROM node:20-alpine@sha256:8e015de364a2eb2ed7c52a558e9f716dcb615560ffd132234087c10ccc1f2c63 AS base
+FROM node:20-alpine AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -39,7 +39,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --production --fr
 COPY --chown=node:node --from=dependencies /app/node_modules/.prisma/client ./node_modules/@prisma/client
 
 # Stage 5 - Production Runnner
-FROM node:20-alpine@sha256:8e015de364a2eb2ed7c52a558e9f716dcb615560ffd132234087c10ccc1f2c63 AS production
+FROM node:20-alpine
 
 ENV NODE_ENV production
 
