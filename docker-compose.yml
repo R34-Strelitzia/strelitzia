@@ -1,0 +1,66 @@
+version: '3.9'
+
+name: strelitzia
+
+volumes:
+  pgdata:
+
+networks:
+  strelitzia-network:
+    driver: bridge
+
+services:
+  database:
+    container_name: postgres
+    image: postgres:16-alpine@sha256:acf5271bbecd4b8733f4e93959a8d2b536a57aeee6cc4b6a71890aaf646425b8
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - strelitzia-network
+    ports:
+      - 5432:5432
+
+  gynoecium:
+    container_name: gynoecium
+    image: ghcr.io/r34-strelitzia/gynoecium:latest
+    restart: always
+    environment:
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_ACCESS_EXPIRES_SECONDS: ${JWT_ACCESS_EXPIRES_SECONDS}
+      JWT_REFRESH_EXPIRES_SECONDS: ${JWT_REFRESH_EXPIRES_SECONDS}
+      DATABASE_URL: postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}/${DATABASE_NAME}?schema=public&application_name=gynoecium
+    depends_on:
+      - database
+    networks:
+      - strelitzia-network
+
+  pistillum:
+    container_name: pistillum
+    image: ghcr.io/r34-strelitzia/pistillum:latest
+    restart: always
+    depends_on:
+      - gynoecium
+    networks:
+      - strelitzia-network
+
+  gateway:
+    container_name: gateway
+    image: nginx:1.25-alpine
+    restart: always
+    depends_on:
+      - gynoecium
+      - pistillum
+    networks:
+      - strelitzia-network
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
