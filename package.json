@@ -9,7 +9,8 @@
     "docker:up": "docker compose -f \"docker-compose.dev.yml\" up -d --build",
     "docker:restart": "pnpm docker:down && pnpm docker:up",
     "start:dev": "pnpm docker:restart && nx run-many --target=serve --all=true",
-    "lint": "pnpm exec nx run-many --target=lint --all=true"
+    "lint": "pnpm exec nx run-many --target=lint --all=true",
+    "test": "pnpm exec nx run-many --target=test --all=true"
   },
   "version": "0.0.0",
   "dependencies": {
