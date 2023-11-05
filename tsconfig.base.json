@@ -22,7 +22,8 @@
         "libs/backend/tag-presets/src/index.ts"
       ],
       "@strelitzia/backend/users": ["libs/backend/users/src/index.ts"],
-      "@strelitzia/contracts/v2": ["libs/contracts/src/v2.ts"]
+      "@strelitzia/contracts/v2": ["libs/contracts/src/v2.ts"],
+      "@strelitzia/frontend/http": ["libs/frontend/http/src/index.ts"]
     },
     "rootDir": ".",
     "skipDefaultLibCheck": true,

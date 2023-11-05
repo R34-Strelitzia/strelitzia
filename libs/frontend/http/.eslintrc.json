@@ -1,0 +1,28 @@
+{
+  "extends": ["../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.js"],
+      "plugins": ["sonarjs"],
+      "extends": ["plugin:unicorn/all", "plugin:sonarjs/recommended"],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "error"
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "sonarjs/no-duplicate-string": "off"
+      }
+    }
+  ]
+}
