@@ -14,7 +14,7 @@ import {
   defaultMeta,
   defaultResponseHooks,
   MethodMetaKey,
-} from './defaults';
+} from './constants';
 import type {
   IContractAPI,
   Interceptor,

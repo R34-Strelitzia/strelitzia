@@ -4,7 +4,7 @@ import { defineMock, createAlovaMockAdapter } from '@alova/mock';
 import { left, right } from '@sweet-monads/either';
 
 import { createHTTPCore, createHTTPClient } from './http';
-import { MethodMetaKey, defaultAdapter, defaultHeaders } from './defaults';
+import { MethodMetaKey, defaultAdapter, defaultHeaders } from './constants';
 
 describe('HTTP Client', () => {
   const path = '/path';
