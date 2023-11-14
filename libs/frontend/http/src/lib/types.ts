@@ -18,7 +18,7 @@ export interface IContractAPI {
   /** Response from API */
   response: unknown;
   /** Possible error */
-  error: APIError;
+  error: APIError<ExpectedErrorCode>;
 }
 
 /** Interceptor is executed before request is sent */
