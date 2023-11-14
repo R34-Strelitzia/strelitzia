@@ -1,0 +1,31 @@
+{
+  "name": "http",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/http/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/frontend/http/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../../coverage/libs/frontend/http"
+      },
+      "configurations": {
+        "run": {},
+        "ui": {
+          "ui": true,
+          "watch": true,
+          "coverage": true
+        }
+      }
+    }
+  },
+  "tags": ["scoped:frontend"]
+}
