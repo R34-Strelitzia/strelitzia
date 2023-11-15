@@ -21,7 +21,7 @@
     "@nestjs/jwt": "10.2.0",
     "@nestjs/passport": "10.0.2",
     "@nestjs/platform-express": "10.2.8",
-    "@nestjs/swagger": "7.1.15",
+    "@nestjs/swagger": "7.1.16",
     "@prisma/client": "5.6.0",
     "@sweet-monads/either": "^3.3.1",
     "alova": "^2.13.1",
