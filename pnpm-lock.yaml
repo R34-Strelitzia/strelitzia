@@ -83,7 +83,7 @@ dependencies:
 
 devDependencies:
   '@alova/mock':
-    specifier: ^1.5.0
+    specifier: 1.5.0
     version: 1.5.0
   '@darraghor/eslint-plugin-nestjs-typed':
     specifier: 4.3.3
@@ -194,10 +194,10 @@ devDependencies:
     specifier: 5.0.1
     version: 5.0.1(eslint-config-prettier@9.0.0)(eslint@8.53.0)(prettier@3.1.0)
   eslint-plugin-sonarjs:
-    specifier: ^0.23.0
+    specifier: 0.23.0
     version: 0.23.0(eslint@8.53.0)
   eslint-plugin-unicorn:
-    specifier: ^49.0.0
+    specifier: 49.0.0
     version: 49.0.0(eslint@8.53.0)
   eslint-plugin-vue:
     specifier: 9.18.1
