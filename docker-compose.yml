@@ -12,7 +12,7 @@ networks:
 services:
   database:
     container_name: postgres
-    image: postgres:16-alpine@sha256:c6799f4b7e44d814c5c59f7c47fcc1351e856d097e971a345b4ea236acd45cca
+    image: postgres:16-alpine@sha256:c77120e1c4244fbbdec25bccb0a4cdedbce77b6595c5572efc2d468f6fd07b58
     restart: always
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
