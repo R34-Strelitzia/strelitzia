@@ -29,7 +29,7 @@
     "bcrypt": "5.1.1",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
-    "core-js": "3.33.3",
+    "core-js": "3.34.0",
     "helmet": "7.1.0",
     "passport": "0.7.0",
     "passport-jwt": "4.0.1",
@@ -94,6 +94,6 @@
     "vite-plugin-eslint": "1.8.1",
     "vite-tsconfig-paths": "4.2.1",
     "vitest": "0.34.6",
-    "vue-tsc": "1.8.24"
+    "vue-tsc": "1.8.25"
   }
 }
