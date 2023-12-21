@@ -22,7 +22,7 @@ COPY --chown=nginx:nginx . .
 
 RUN pnpm exec nx run pistillum:build --configuration=production
 
-FROM nginx:1.25-alpine@sha256:3923f8de8d2214b9490e68fd6ae63ea604deddd166df2755b788bef04848b9bc AS production
+FROM nginx:1.25-alpine@sha256:ba48c86adff12f1849920b6175c328b58b589f68feb082de8677309718945a56 AS production
 
 COPY --chown=nginx:nginx ./apps/pistillum/nginx.conf /etc/nginx/conf.d/default.conf
 
