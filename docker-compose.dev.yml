@@ -17,7 +17,7 @@ services:
 
   cache:
     container_name: redis
-    image: redis:7-alpine@sha256:75e791f5e4f0589f50b19a15ade4f9c0e914afb694ae33e0892ec207a6badc73
+    image: redis:7-alpine@sha256:1b503bb77079ba644371969e06e1a6a1670bb34c2251107c0fc3a21ef9fdaeca
     restart: always
     environment:
       - REDIS_PASSWORD=TEST
