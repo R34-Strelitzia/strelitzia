@@ -3,7 +3,7 @@ version: '3.9'
 services:
   db:
     container_name: postgres
-    image: postgres:16-alpine@sha256:8a52533e6a945aaecf967402d49b91d6a501ffe3d71c00217b5486ac6d2e6353
+    image: postgres:16-alpine@sha256:17eb369d9330fe7fbdb2f705418c18823d66322584c77c2b43cc0e1851d01de7
     restart: always
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
