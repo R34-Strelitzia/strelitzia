@@ -1,5 +1,5 @@
 # Stage 1 - Base Setup
-FROM node:20-alpine AS base
+FROM node:20-alpine@sha256:842159a809c86c28a799b235f95e6010aa64d967d98eee0db4db5979d33dd43e AS base
 
 RUN apk add --no-cache tini
 
